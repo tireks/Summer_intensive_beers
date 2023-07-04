@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/pic_start_menu"
+        android:title=""
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/start_menu_btn_search"
+                android:icon="@drawable/pic_start_menu_search"
+                android:title="@string/start_menu_search"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/start_menu_btn_random"
+                android:icon="@drawable/pic_start_menu_random"
+                android:title="@string/start_menu_random"
+                app:showAsAction="never" />
+                />
+        </menu>
+    </item>
+
+
+</menu>
