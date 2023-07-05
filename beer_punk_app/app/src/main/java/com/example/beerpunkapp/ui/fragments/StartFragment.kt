@@ -13,7 +13,7 @@ import com.example.beerpunkapp.utilits.showToast
 import com.github.javafaker.Faker
 
 
-class StartFragment : BaseFragment<FragmentStartBinding>()
+class StartFragment : BaseFragment<FragmentStartBinding>() {
     val faker = Faker.instance()
     val beerList by lazy { (1..20).map { BeerTestModel(
         id = it.toInt(),
