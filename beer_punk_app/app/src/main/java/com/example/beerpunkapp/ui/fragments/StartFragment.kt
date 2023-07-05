@@ -1,33 +1,26 @@
 package com.example.beerpunkapp.ui.fragments
 
-import android.app.Application
-import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.beerpunkapp.R
 import com.example.beerpunkapp.databinding.FragmentStartBinding
-import com.example.beerpunkapp.model.App
 import com.example.beerpunkapp.model.BeerAdapter
-import com.example.beerpunkapp.model.BeerService
 import com.example.beerpunkapp.model.BeerTestModel
+import com.example.beerpunkapp.utilits.mainActivity
 import com.example.beerpunkapp.utilits.showToast
 import com.github.javafaker.Faker
 
 
 class StartFragment : BaseFragment<FragmentStartBinding>(){
    // private val adapter by lazy { BeerAdapter() }
-
-    /*private val beerService: BeerService
-        get() = (activity?.applicationContext as App).beerService*/
     val faker = Faker.instance()
-    val beerList = (1..20).map { BeerTestModel(
+    val beerList by lazy { (1..20).map { BeerTestModel(
         id = it.toInt(),
         naming = faker.beer().name(),
         tags = faker.harryPotter().quote(),
-        description = R.string.recycler_view_description_placeholder.toString(),
+        description = activity?.getString(R.string.recycler_view_description_placeholder) ?: "123",
+        //description = "123321",
         photo = "https://images.punkapi.com/v2/86.png"
-    ) }.toMutableList()
+    ) }.toMutableList() }
 
     override fun inflateViewBinding(
         inflater: LayoutInflater,
@@ -47,10 +40,12 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
 
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         activity?.menuInflater?.inflate(R.menu.start_action_menu, menu)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.start_menu_btn_search -> {
