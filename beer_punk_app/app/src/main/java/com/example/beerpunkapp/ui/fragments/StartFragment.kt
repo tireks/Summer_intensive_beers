@@ -1,9 +1,6 @@
 package com.example.beerpunkapp.ui.fragments
 
 import android.view.*
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
-import androidx.fragment.app.Fragment
 import com.example.beerpunkapp.R
 import com.example.beerpunkapp.databinding.FragmentStartBinding
 import com.example.beerpunkapp.model.BeerAdapter
@@ -13,7 +10,8 @@ import com.example.beerpunkapp.utilits.showToast
 import com.github.javafaker.Faker
 
 
-class StartFragment : BaseFragment<FragmentStartBinding>()
+class StartFragment : BaseFragment<FragmentStartBinding>(){
+   // private val adapter by lazy { BeerAdapter() }
     val faker = Faker.instance()
     val beerList by lazy { (1..20).map { BeerTestModel(
         id = it.toInt(),
@@ -33,30 +31,33 @@ class StartFragment : BaseFragment<FragmentStartBinding>()
 
     override fun onResume() {
         super.onResume()
-        setupMenu()
+        setHasOptionsMenu(true)
+        binding.startRecyclerView.adapter = BeerAdapter(::handleCl)
+        (binding.startRecyclerView.adapter as? BeerAdapter)?.beers = beerList
     }
 
-    private fun setupMenu() {
-        (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider{
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.start_action_menu, menu)
-            }
+    private fun handleCl(beerTestModel: BeerTestModel) {
 
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return when (menuItem.itemId) {
-                    R.id.start_menu_btn_search -> {
-                        showToast("searchPlaceHolder")
-                        true
-                    }
-                    R.id.start_menu_btn_random -> {
-                        showToast("randomizePlaceHolder")
-                        true
-                    }
-
-                    else -> return false
-                }
-            }
-
-        }, viewLifecycleOwner, androidx.lifecycle.Lifecycle.State.RESUMED)
     }
+
+    @Deprecated("Deprecated in Java")
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        activity?.menuInflater?.inflate(R.menu.start_action_menu, menu)
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.start_menu_btn_search -> {
+                showToast("searchPlaceHolder")
+                true
+            }
+            R.id.start_menu_btn_random -> {
+                showToast("randomizePlaceHolder")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 }
