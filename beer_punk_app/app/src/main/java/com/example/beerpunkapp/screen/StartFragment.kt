@@ -20,16 +20,7 @@ import com.example.beerpunkapp.utilits.showToast
 
 
 class StartFragment : BaseFragment<FragmentStartBinding>(){
-   // private val adapter by lazy { BeerAdapter() }
-    /*val faker = Faker.instance()
-    val beerList by lazy { (1..20).map { BeerTestModel(
-        id = it.toInt(),
-        naming = faker.beer().name(),
-        tags = faker.harryPotter().quote(),
-        description = activity?.getString(R.string.recycler_view_description_placeholder) ?: "123",
-        //description = "123321",
-        photo = "https://images.punkapi.com/v2/86.png"
-    ) }.toMutableList() }*/
+    private var page : Long = 1
 
     override fun inflateViewBinding(
         inflater: LayoutInflater,
@@ -53,7 +44,11 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
         viewModel.state.observe(viewLifecycleOwner, ::handleState)
 
         // Метод для запроса данных из сети
-        viewModel.loadData()
+        loadData()
+    }
+
+    private fun loadData() {
+        viewModel.loadData(page)
     }
 
     private fun handleState(state: StartListState) {
@@ -68,8 +63,6 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
     override fun onResume() {
         super.onResume()
         setupMenu()
-        /*binding.startRecyclerView.adapter = BeerAdapter(::handleCl)
-        (binding.startRecyclerView.adapter as? BeerAdapter)?.beers = beerList*/
     }
 
     private fun showError(msg: String) {
@@ -79,8 +72,7 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
             errorContent.isVisible = true
             errorText.text = msg
             errorButton.setOnClickListener {
-                // Метод для запроса данных из сети
-                viewModel.loadData()
+                loadData()
             }
         }
     }
@@ -89,9 +81,20 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
         with(binding) {
             progressBar.isVisible = false
             errorContent.isVisible = false
-
             recuclerViewContent.isVisible = true
             (startRecyclerView.adapter as? StartAdapter)?.beers = beers
+            buttonNextPage.setOnClickListener {
+                page++
+                loadData()
+                buttonInfoPage.text = "Page $page"
+            }
+            buttonPrevPage.setOnClickListener {
+                if (page > 1){
+                    page--
+                    loadData()
+                    buttonInfoPage.text = "Page $page"
+                }
+            }
         }
 }
 
@@ -129,7 +132,7 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
         }, viewLifecycleOwner, androidx.lifecycle.Lifecycle.State.RESUMED)
     }
 
-    private fun handleBeerClick(beerTestModel: BeerModel) {
+    private fun handleBeerClick(beerModel: BeerModel) {
 
     }
 

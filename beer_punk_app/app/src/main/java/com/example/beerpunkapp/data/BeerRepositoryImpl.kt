@@ -57,8 +57,8 @@ class BeerRepositoryImpl : BeerRepository{
 
     private val converter = BeerConverter()
 
-    override suspend fun getAll(): List<Beer> =
-        beerApi.getAll().map { converter.convert(it) }
+    override suspend fun getAll(page: Long): List<Beer> =
+        beerApi.getAll(page).map { converter.convert(it) }
 
     /*override suspend fun getById(id: Long): Loan =
         converter.convert(loanApi.getLoanById(id))*/
