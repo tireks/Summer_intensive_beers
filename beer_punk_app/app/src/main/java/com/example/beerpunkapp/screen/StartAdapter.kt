@@ -1,36 +1,46 @@
-package com.example.beerpunkapp.model
+package com.example.beerpunkapp.screen
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ExpandableListView.OnChildClickListener
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerpunkapp.R
+import com.example.beerpunkapp.data.BeerModel
 import com.example.beerpunkapp.databinding.ItemBeerBinding
+import com.example.beerpunkapp.domain.entity.Beer
+import kotlin.reflect.KFunction1
 
-class BeerAdapter(private  val beerClickListener: (BeerTestModel) -> Unit) : RecyclerView.Adapter<BeerAdapter.BeersViewHolder>() {
+class StartAdapter(
+    private val loanClickListener: KFunction1<BeerModel, Unit>
+) : RecyclerView.Adapter<StartViewHolder>() {
 
-    var beers: List<BeerTestModel> = emptyList()
+    var beers: List<Beer> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
-    class BeersViewHolder( val binding: ItemBeerBinding ) : RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeersViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StartViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemBeerBinding.inflate(inflater, parent, false)
-        return BeersViewHolder(binding)
+        return StartViewHolder(binding)
     }
 
     override fun getItemCount(): Int = beers.size
 
-    override fun onBindViewHolder(holder: BeersViewHolder, position: Int) {
-        val beer = beers[position]
-        with(holder.binding){
-            itemName.text = beer.naming
+
+    override fun onBindViewHolder(holder: StartViewHolder, position: Int) {
+        holder.bind(beers[position]/*, loanClickListener*/)
+    }
+}
+
+class StartViewHolder(
+    private val binding: ItemBeerBinding
+) : RecyclerView.ViewHolder(binding.root) {
+    fun bind(beer: Beer){
+        with(binding){
             itemId.text = beer.id.toString()
+            itemName.text = beer.name
             itemTag.text = beer.tags
             itemDescription.text = beer.description
             Glide.with(itemPhoto.context)
