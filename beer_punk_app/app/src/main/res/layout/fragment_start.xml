@@ -8,14 +8,21 @@
     android:backgroundTint="@color/acMenuGray"
     android:background="@color/acMenuGray"
     >
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/start_recyclerView"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/recuclerView_Content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_beer"
-        />
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/start_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_beer"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"

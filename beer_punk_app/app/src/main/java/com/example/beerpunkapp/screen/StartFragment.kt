@@ -75,8 +75,7 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
     private fun showError(msg: String) {
         with(binding) {
             progressBar.isVisible = false
-            startRecyclerView.isVisible = false
-
+            recuclerViewContent.isVisible = false
             errorContent.isVisible = true
             errorText.text = msg
             errorButton.setOnClickListener {
@@ -91,7 +90,7 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
             progressBar.isVisible = false
             errorContent.isVisible = false
 
-            startRecyclerView.isVisible = true
+            recuclerViewContent.isVisible = true
             (startRecyclerView.adapter as? StartAdapter)?.beers = beers
         }
 }
@@ -99,8 +98,7 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
     private fun showProgress() {
         with(binding) {
             errorContent.isVisible = false
-            startRecyclerView.isVisible = false
-
+            recuclerViewContent.isVisible = false
             progressBar.isVisible = true
         }
     }
