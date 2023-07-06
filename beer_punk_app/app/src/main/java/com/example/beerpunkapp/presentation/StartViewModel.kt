@@ -13,12 +13,12 @@ class StartViewModel(
     private val _state = MutableLiveData<StartListState>(StartListState.Initial)
     val state: LiveData<StartListState> = _state
 
-    fun loadData(){
+    fun loadData(page: Long){
         viewModelScope.launch {
             // Тут изменяет состояние для отображения лоадера
             _state.value = StartListState.Loading
             try {
-                val loans = getAllUseCase()
+                val loans = getAllUseCase(page)
                 // Тут изменяет состояние для отображения списка займов: передаем полученный список займов из сети
                 _state.value = StartListState.Content(loans)
             } catch (e: Exception) {
