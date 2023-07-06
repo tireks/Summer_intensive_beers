@@ -1,4 +1,4 @@
-package com.example.beerpunkapp.ui.fragments
+package com.example.beerpunkapp.screen
 
 import android.os.Bundle
 import android.view.LayoutInflater
