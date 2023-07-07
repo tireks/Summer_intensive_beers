@@ -7,7 +7,7 @@ sealed interface StartListState{
 
     object Loading : StartListState
 
-    data class Content(val items: List<Beer>) : StartListState
+    data class Content(val items: List<Beer>, val page: Long) : StartListState
 
     data class Error(val msg: String) : StartListState
 }
