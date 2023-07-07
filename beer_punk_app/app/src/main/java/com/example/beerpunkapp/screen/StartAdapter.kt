@@ -40,9 +40,9 @@ class StartViewHolder(
     fun bind(beer: Beer){
         with(binding){
             itemId.text = beer.id.toString()
-            itemName.text = beer.name
-            itemTag.text = beer.tags
-            itemDescription.text = beer.description
+            itemName.text = beer.name ?: "--name is missing--"
+            itemTag.text = beer.tags ?: "--tag is missing--"
+            itemDescription.text = beer.description ?: "--description is missing--"
             Glide.with(itemPhoto.context)
                 .load(beer.photo)
                 .placeholder(R.drawable.recycler_view_placeholder)

@@ -11,8 +11,8 @@ class BeerConverter {
                 tags = tagline,
                 description = description,
                 abv = abv,
-                //ibu = ibu,
-                //ebc = ebc,
+                ibu = ibu,
+                ebc = ebc,
                 brew_date = first_brewed,
                 photo = image_url
             )

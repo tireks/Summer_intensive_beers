@@ -7,7 +7,19 @@
     <string name="start_menu_search">Search</string>
     <string name="start_menu_random">Random pick</string>
 
-    <string name="start_recycler_view_description_placeholder">Our flagship beer that kick started the craft beer revolution. This is James and Martin\'s original take on an American IPA, subverted with punchy New Zealand hops. Layered with new world hops to create an all-out riot of grapefruit, pineapple and lychee before a spiky, mouth-puckering bitter finish.</string>
+    <string name="start_recycler_view_description_placeholder_for_design">Our flagship beer that kick started the craft beer revolution. This is James and Martin\'s original take on an American IPA, subverted with punchy New Zealand hops. Layered with new world hops to create an all-out riot of grapefruit, pineapple and lychee before a spiky, mouth-puckering bitter finish.</string>
+    <string name="start_recycler_view_id_placeholder_nulldata">--?--</string>
+    <string name="start_recycler_view_name_placeholder_nulldata">--name is missing--</string>
+    <string name="start_recycler_view_tag_placeholder_nulldata">--tag is missing--</string>
+    <string name="start_recycler_view_description_placeholder_nulldata">--description is missing--</string>
+    <string name="start_recycler_view_abv_placeholder_nulldata">--abv is missing--</string>
+    <string name="start_recycler_view_ibu_placeholder_nulldata">--ibu is missing--</string>
+    <string name="start_recycler_view_ebc_placeholder_nulldata">--ebc is missing--</string>
+    <string name="start_recycler_view_date_placeholder_nulldata">--date is missing--</string>
+    <string name="start_recycler_view_image_placeholder_nulldata">--image is missing--</string>
+
     <string name="start_error">Error! Try Again</string>
     <string name="start_button_info">Page 1</string>
+
+
 </resources>
