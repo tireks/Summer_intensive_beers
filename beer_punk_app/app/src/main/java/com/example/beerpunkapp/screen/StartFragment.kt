@@ -41,6 +41,7 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
 
         binding.startRecyclerView.adapter = StartAdapter(::handleBeerClick)
         viewModel.state.observe(viewLifecycleOwner, ::handleState)
+
         loadData()
         setupMenu()
     }
@@ -53,7 +54,7 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
         when (state) {
             StartListState.Initial    -> Unit
             StartListState.Loading    -> showProgress()
-            is StartListState.Content -> showContent(state.items, state.page)
+            is StartListState.Content -> showContent(state.items,state.page)
             is StartListState.Error   -> showError(state.msg)
         }
     }

@@ -11,7 +11,7 @@ import com.example.beerpunkapp.domain.entity.Beer
 import kotlin.reflect.KFunction1
 
 class StartAdapter(
-    private val loanClickListener: KFunction1<BeerModel, Unit>
+    private val beerClickListener: KFunction1<BeerModel, Unit>
 ) : RecyclerView.Adapter<StartViewHolder>() {
 
     var beers: List<Beer> = emptyList()
@@ -30,7 +30,7 @@ class StartAdapter(
 
 
     override fun onBindViewHolder(holder: StartViewHolder, position: Int) {
-        holder.bind(beers[position]/*, loanClickListener*/)
+        holder.bind(beers[position]/*, beerClickListener*/)
     }
 }
 
