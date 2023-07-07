@@ -38,11 +38,13 @@ class StartViewHolder(
     private val binding: ItemBeerBinding
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(beer: Beer){
+        //itemView.context
+        var res = itemView.context.resources
         with(binding){
             itemId.text = beer.id.toString()
-            itemName.text = beer.name ?: "--name is missing--"
-            itemTag.text = beer.tags ?: "--tag is missing--"
-            itemDescription.text = beer.description ?: "--description is missing--"
+            itemName.text = beer.name ?: res.getString(R.string.start_recycler_view_name_placeholder_nulldata)
+            itemTag.text = beer.tags ?: res.getString(R.string.start_recycler_view_tag_placeholder_nulldata)
+            itemDescription.text = beer.description ?: res.getString(R.string.start_recycler_view_description_placeholder_nulldata)
             Glide.with(itemPhoto.context)
                 .load(beer.photo)
                 .placeholder(R.drawable.recycler_view_placeholder)

@@ -20,7 +20,6 @@ import com.example.beerpunkapp.utilits.showToast
 
 
 class StartFragment : BaseFragment<FragmentStartBinding>(){
-    private var page : Long = 1
 
     override fun inflateViewBinding(
         inflater: LayoutInflater,
@@ -42,27 +41,21 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
 
         binding.startRecyclerView.adapter = StartAdapter(::handleBeerClick)
         viewModel.state.observe(viewLifecycleOwner, ::handleState)
-
-        // Метод для запроса данных из сети
         loadData()
+        setupMenu()
     }
 
     private fun loadData() {
-        viewModel.loadData(page)
+        viewModel.loadData()
     }
 
     private fun handleState(state: StartListState) {
         when (state) {
             StartListState.Initial    -> Unit
             StartListState.Loading    -> showProgress()
-            is StartListState.Content -> showContent(state.items)
+            is StartListState.Content -> showContent(state.items, state.page)
             is StartListState.Error   -> showError(state.msg)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        setupMenu()
     }
 
     private fun showError(msg: String) {
@@ -77,23 +70,18 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
         }
     }
 
-    private fun showContent(beers: List<Beer>) {
+    private fun showContent(beers: List<Beer>, page: Long) {
         with(binding) {
             progressBar.isVisible = false
             errorContent.isVisible = false
             recuclerViewContent.isVisible = true
             (startRecyclerView.adapter as? StartAdapter)?.beers = beers
+            buttonInfoPage.text = String.format(resources.getString(R.string.start_button_info_variable), page)
             buttonNextPage.setOnClickListener {
-                page++
-                loadData()
-                buttonInfoPage.text = "Page $page"
+                viewModel.nextButtonHandler()
             }
             buttonPrevPage.setOnClickListener {
-                if (page > 1){
-                    page--
-                    loadData()
-                    buttonInfoPage.text = "Page $page"
-                }
+                viewModel.prevButtonHandler()
             }
         }
 }
