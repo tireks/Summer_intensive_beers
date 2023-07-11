@@ -36,6 +36,9 @@
     <string name="details_ebc_content">17.0</string>
     <string name="details_srm_content">8.5</string>
     <string name="details_food_header">Food pairings:</string>
+    <string name="details_ingredients_header">Ingredients:</string>
+    <string name="details_yeast_header">Yeast:</string>
+    <string name="details_yeast_content">Wyeast 3522 - Belgian Ardennes</string>
 
 
 </resources>
