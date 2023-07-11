@@ -13,7 +13,9 @@ class BeerConverter {
                 abv = abv,
                 ibu = ibu,
                 ebc = ebc,
+                srm = srm,
                 brew_date = first_brewed,
+                food = food_pairing,
                 photo = image_url
             )
         }

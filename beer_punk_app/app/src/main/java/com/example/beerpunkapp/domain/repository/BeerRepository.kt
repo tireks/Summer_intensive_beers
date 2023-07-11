@@ -5,5 +5,5 @@ import com.example.beerpunkapp.domain.entity.Beer
 interface BeerRepository {
     suspend fun getAll(page: Long): List<Beer>
 
-    /*suspend fun getById(id: Long): Loan*/
+    suspend fun getById(id: Long): List<Beer>
 }

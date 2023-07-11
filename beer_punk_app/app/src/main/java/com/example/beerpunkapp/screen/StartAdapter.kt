@@ -11,8 +11,8 @@ import com.example.beerpunkapp.domain.entity.Beer
 import kotlin.reflect.KFunction1
 
 class StartAdapter(
-    private val beerClickListener: KFunction1<BeerModel, Unit>
-) : RecyclerView.Adapter<StartViewHolder>() {
+    private val beerClickListener: (Beer) -> Unit)
+    : RecyclerView.Adapter<StartViewHolder>() {
 
     var beers: List<Beer> = emptyList()
         set(value) {
@@ -30,14 +30,14 @@ class StartAdapter(
 
 
     override fun onBindViewHolder(holder: StartViewHolder, position: Int) {
-        holder.bind(beers[position]/*, beerClickListener*/)
+        holder.bind(beers[position], beerClickListener)
     }
 }
 
 class StartViewHolder(
     private val binding: ItemBeerBinding
 ) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(beer: Beer){
+    fun bind(beer: Beer, beerClickListener: (Beer) -> Unit){
         //itemView.context
         var res = itemView.context.resources
         with(binding){
@@ -51,5 +51,6 @@ class StartViewHolder(
                 .error(R.drawable.recycler_view_placeholder)
                 .into(itemPhoto)
         }
+        itemView.setOnClickListener { beerClickListener(beer) }
     }
 }

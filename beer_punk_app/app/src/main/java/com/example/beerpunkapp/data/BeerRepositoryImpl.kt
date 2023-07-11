@@ -60,6 +60,6 @@ class BeerRepositoryImpl : BeerRepository{
     override suspend fun getAll(page: Long): List<Beer> =
         beerApi.getAll(page).map { converter.convert(it) }
 
-    /*override suspend fun getById(id: Long): Loan =
-        converter.convert(loanApi.getLoanById(id))*/
+    override suspend fun getById(id: Long): List<Beer> =
+        beerApi.getBeerById(id).map { converter.convert(it) }
 }
