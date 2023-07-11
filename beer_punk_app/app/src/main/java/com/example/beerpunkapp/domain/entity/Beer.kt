@@ -1,8 +1,9 @@
 package com.example.beerpunkapp.domain.entity
 
 import com.example.beerpunkapp.data.BeerModel
+import com.example.beerpunkapp.data.Ingredients
 
-data class Beer (
+data class Beer(
     val id: Long?,
     val name: String?,
     val tags: String?,
@@ -13,6 +14,7 @@ data class Beer (
     val srm: String?,
     val brew_date: String?,
     val food: Array<String?>,
+    val ingredients: Ingredients?,
     val photo: String?
         ){
     override fun equals(other: Any?): Boolean {
@@ -30,3 +32,7 @@ data class Beer (
         return food.contentHashCode()
     }
 }
+
+data class Ingredients (
+    val yeast : String?
+        )

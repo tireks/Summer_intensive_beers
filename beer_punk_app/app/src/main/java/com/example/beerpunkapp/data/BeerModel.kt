@@ -11,6 +11,7 @@ data class BeerModel (
     val srm: String?,
     val first_brewed: String?,
     val food_pairing: Array<String?>,
+    val ingredients: Ingredients?,
     val image_url: String?
         ) {
     override fun equals(other: Any?): Boolean {
@@ -28,3 +29,7 @@ data class BeerModel (
         return food_pairing.contentHashCode()
     }
 }
+
+data class Ingredients (
+    val yeast : String?
+        )

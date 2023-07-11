@@ -80,11 +80,14 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(){
             detailsFirstBrewedContent.text = beers[0].brew_date ?: "--date is missing--"
             detailsDescriptionContent.text = beers[0].description ?: "--description is missing--"
             detailsTagContent.text = beers[0].tags ?: "--tag is missing--"
+            //detailsTagContent.text = beers[0].ingredients?.yeast ?: "--tag is missing--"
             detailsAbvContent.text = beers[0].abv ?: "--?--"
             detailsEbcContent.text = beers[0].ebc ?: "--?--"
             detailsIbuContent.text = beers[0].ibu ?: "--?--"
             detailsSrmContent.text = beers[0].srm ?: "--?--"
             detailsToolbar.title = beers[0].name ?: "--name is missing--"
+            detailsYeastContent.text = beers[0].ingredients?.yeast ?: "--yeast is missing--"
+
             for (i in beers[0].food.indices){
                 detailsFoodContent.append(beers[0].food[i])
                 if (i < beers[0].food.size - 1){
