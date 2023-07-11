@@ -13,14 +13,24 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="actionMenuTextColor">@color/acMenuGray</item>
+        <item name="colorControlNormal">@color/white</item>
     </style>
 
-    <style name="actionMenu" parent="Widget.Material3.PopupMenu">
+    <style name="Theme.BeerPunkApp.actionMenu" parent="Widget.Material3.PopupMenu">
         <item name="android:textColor">?attr/actionMenuTextColor</item>
         <item name="android:background">@color/white</item>
     </style>
-    <style name="floatingButton" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="Theme.BeerPunkApp.floatingButton" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorSecondary">@color/acMenuGray</item>
         <item name="colorOnSecondary">@color/white</item>
     </style>
+    <style name="Theme.BeerPunkApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+    </style>
+    <!--<style name="Theme.MyFancyTheme" parent="android:Theme.Holo">
+        <item name="android:homeAsUpIndicator">@drawable/back_button_image</item>
+    </style>-->
+
 </resources>
