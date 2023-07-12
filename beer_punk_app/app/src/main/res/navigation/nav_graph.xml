@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_startFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
-        <action
-            android:id="@+id/action_startFragment_to_randomBeerFragment"
-            app:destination="@id/randomBeerFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -28,9 +25,4 @@
             app:argType="long"
             />
     </fragment>
-    <fragment
-        android:id="@+id/randomBeerFragment"
-        android:name="com.example.beerpunkapp.screen.RandomBeerFragment"
-        android:label="RandomBeerFragment"
-        tools:layout="@layout/fragment_random_beer"/>
 </navigation>

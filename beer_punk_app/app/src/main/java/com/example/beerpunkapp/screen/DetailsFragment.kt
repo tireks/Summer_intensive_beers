@@ -16,6 +16,7 @@ import com.example.beerpunkapp.databinding.FragmentDetailsBinding
 import com.example.beerpunkapp.databinding.FragmentStartBinding
 import com.example.beerpunkapp.domain.entity.Beer
 import com.example.beerpunkapp.domain.usecase.GetBeerByIdUseCase
+import com.example.beerpunkapp.domain.usecase.GetRandomBeerUseCase
 import com.example.beerpunkapp.presentation.DetailsState
 import com.example.beerpunkapp.presentation.DetailsViewModel
 import com.example.beerpunkapp.utilits.mainActivity
@@ -27,7 +28,8 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(){
     private val viewModel: DetailsViewModel by viewModels {
         viewModelFactory {
             initializer {
-                DetailsViewModel(GetBeerByIdUseCase(mainActivity.repository))
+                DetailsViewModel(GetBeerByIdUseCase(mainActivity.repository),
+                                GetRandomBeerUseCase(mainActivity.repository))
             }
         }
     }

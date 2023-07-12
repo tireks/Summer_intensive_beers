@@ -18,6 +18,7 @@ import com.example.beerpunkapp.presentation.StartListState
 import com.example.beerpunkapp.presentation.StartViewModel
 import com.example.beerpunkapp.utilits.mainActivity
 import com.example.beerpunkapp.utilits.showToast
+import kotlin.math.abs
 
 
 class StartFragment : BaseFragment<FragmentStartBinding>(){
@@ -51,7 +52,6 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
         super.onResume()
         mainActivity.setSupportActionBar(binding.mainToolbar)
         setupMenu()  //возможно не стоит это делать здесь, просто по другому тулбар не поднимается после возврата на этот фрагмент
-        //mainActivity.supportActionBar?.show()
     }
 
     private fun loadData() {
@@ -130,11 +130,19 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
     }
 
     private fun handleRandomClick() {
-        mainActivity.openRandomBeer()
+        //mainActivity.openRandomBeer()
+        mainActivity.openDetails(-1) // все эти пляски с положительным\отрицательным id возможно не очень корректно,
+                                                    // но мне для рандома хотелось использовать инфраструктуру details,
+                                                    // ибо там по сути все то же самое
     }
 
     private fun handleBeerClick(beer: Beer) {
-        beer.id?.let { mainActivity.openDetails(beerId = it) }
+        /*beer.id?.let { mainActivity.openDetails(abs(it)) }*/
+        try {
+            beer.id?.let { mainActivity.openDetails(abs(it)) }
+        } catch (e: Exception){
+            showError(e.message.toString())
+        }
     }
 
 }
