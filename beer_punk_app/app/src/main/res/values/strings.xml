@@ -39,6 +39,8 @@
     <string name="details_ingredients_header">Ingredients:</string>
     <string name="details_yeast_header">Yeast:</string>
     <string name="details_yeast_content">Wyeast 3522 - Belgian Ardennes</string>
+    <string name="details_malt_header">Malt:</string>
+    <string name="details_hops_header">Hops:</string>
 
 
 </resources>
