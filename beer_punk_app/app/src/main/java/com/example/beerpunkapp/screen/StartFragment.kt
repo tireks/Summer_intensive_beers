@@ -118,7 +118,7 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
                         true
                     }
                     R.id.start_menu_btn_random -> {
-                        showToast("randomizePlaceHolder")
+                        handleRandomClick()
                         true
                     }
 
@@ -127,6 +127,10 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
             }
 
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun handleRandomClick() {
+        mainActivity.openRandomBeer()
     }
 
     private fun handleBeerClick(beer: Beer) {

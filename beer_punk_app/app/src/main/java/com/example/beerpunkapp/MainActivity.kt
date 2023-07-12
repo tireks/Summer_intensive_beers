@@ -47,6 +47,11 @@ class MainActivity : AppCompatActivity() {
         navController.navigate(action)
     }
 
+    fun openRandomBeer(){
+        val action = StartFragmentDirections.actionStartFragmentToRandomBeerFragment()
+        navController.navigate(action)
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp()
     }

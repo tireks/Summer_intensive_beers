@@ -6,4 +6,6 @@ interface BeerRepository {
     suspend fun getAll(page: Long): List<Beer>
 
     suspend fun getById(id: Long): List<Beer>
+
+    suspend fun getRandomBeer() : List<Beer>
 }
