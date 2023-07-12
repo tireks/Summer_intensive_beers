@@ -87,13 +87,31 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(){
             detailsSrmContent.text = beers[0].srm ?: "--?--"
             detailsToolbar.title = beers[0].name ?: "--name is missing--"
             detailsYeastContent.text = beers[0].ingredients?.yeast ?: "--yeast is missing--"
-
             for (i in beers[0].food.indices){
                 detailsFoodContent.append(beers[0].food[i])
                 if (i < beers[0].food.size - 1){
                     detailsFoodContent.append("\n")
                 }
             }
+            val tempBuff = beers[0].ingredients?.malt
+            if (tempBuff != null){
+                for (i in tempBuff.indices){
+                    detailsMaltContent.append(tempBuff[i]?.name ?: "--malt is missing--")
+                    if (i < tempBuff.size - 1){
+                        detailsMaltContent.append("\n")
+                    }
+                }
+            }
+            val tempBuff1 = beers[0].ingredients?.hops?.distinct()
+            if (tempBuff1 != null){
+                for (i in tempBuff1.indices){
+                    detailsHopsContent.append(tempBuff1[i]?.name ?: "--malt is missing--")
+                    if (i < tempBuff1.size - 1){
+                        detailsHopsContent.append("\n")
+                    }
+                }
+            }
+
             Glide.with(toolbarPic.context)
                 .load(beers[0].photo)
                 .placeholder(R.drawable.recycler_view_placeholder)

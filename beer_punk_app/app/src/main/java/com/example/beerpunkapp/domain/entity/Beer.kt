@@ -33,6 +33,3 @@ data class Beer(
     }
 }
 
-data class Ingredients (
-    val yeast : String?
-        )
