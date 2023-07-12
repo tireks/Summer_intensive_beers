@@ -12,4 +12,7 @@ interface BeersApi {
     @GET("beers")
     suspend fun getBeerById(@Query("ids") beerId: Long): List<BeerModel>
 
+    @GET("beers/random")
+    suspend fun getRandomBeer() : List<BeerModel>
+
 }
