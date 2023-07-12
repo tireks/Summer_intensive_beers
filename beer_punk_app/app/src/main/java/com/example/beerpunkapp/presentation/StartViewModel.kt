@@ -19,9 +19,9 @@ class StartViewModel(
             // Тут изменяет состояние для отображения лоадера
             _state.value = StartListState.Loading
             try {
-                val loans = getAllUseCase(page)
+                val beers = getAllUseCase(page)
                 // Тут изменяет состояние для отображения списка займов: передаем полученный список займов из сети
-                _state.value = StartListState.Content(loans, page)
+                _state.value = StartListState.Content(beers, page)
             } catch (e: Exception) {
                 // Тут изменяет состояние для отображения ошибки: передаем полученное сообщение об ошибки
                 _state.value = StartListState.Error(e.localizedMessage.orEmpty())

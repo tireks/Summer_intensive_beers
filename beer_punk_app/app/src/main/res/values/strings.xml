@@ -18,9 +18,29 @@
     <string name="start_recycler_view_date_placeholder_nulldata">--date is missing--</string>
     <string name="start_recycler_view_image_placeholder_nulldata">--image is missing--</string>
 
+
     <string name="start_error">Error! Try Again</string>
     <string name="start_button_info">Page 1</string>
     <string name="start_button_info_variable">Page %s</string>
+    <string name="details_tagline_header">Tagline:</string>
+    <string name="details_first_brewed_header">First brewed:</string>
+    <string name="details_tagline_content">Post Modern Classic. Spiky. Tropical. Hoppy.</string>
+    <string name="details_first_brewed_content">04/2007</string>
+    <string name="details_description_header">Description:</string>
+    <string name="details_abv_header">ABV:</string>
+    <string name="details_ibu_header">IBU:</string>
+    <string name="details_ebc_header">EBC:</string>
+    <string name="details_srm_header">SRM:</string>
+    <string name="details_abv_content">6.0</string>
+    <string name="details_ibu_content">60.0</string>
+    <string name="details_ebc_content">17.0</string>
+    <string name="details_srm_content">8.5</string>
+    <string name="details_food_header">Food pairings:</string>
+    <string name="details_ingredients_header">Ingredients:</string>
+    <string name="details_yeast_header">Yeast:</string>
+    <string name="details_yeast_content">Wyeast 3522 - Belgian Ardennes</string>
+    <string name="details_malt_header">Malt:</string>
+    <string name="details_hops_header">Hops:</string>
 
 
 </resources>

@@ -6,6 +6,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.beerpunkapp.R
@@ -20,6 +21,8 @@ import com.example.beerpunkapp.utilits.showToast
 
 
 class StartFragment : BaseFragment<FragmentStartBinding>(){
+
+    /*private val mToolbar by lazy { binding.mainToolbar }*/
 
     override fun inflateViewBinding(
         inflater: LayoutInflater,
@@ -38,11 +41,17 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.startRecyclerView.adapter = StartAdapter(::handleBeerClick)
         viewModel.state.observe(viewLifecycleOwner, ::handleState)
         loadData()
-        setupMenu()
+        //setupMenu()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mainActivity.setSupportActionBar(binding.mainToolbar)
+        setupMenu()  //возможно не стоит это делать здесь, просто по другому тулбар не поднимается после возврата на этот фрагмент
+        //mainActivity.supportActionBar?.show()
     }
 
     private fun loadData() {
@@ -53,7 +62,7 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
         when (state) {
             StartListState.Initial    -> Unit
             StartListState.Loading    -> showProgress()
-            is StartListState.Content -> showContent(state.items, state.page)
+            is StartListState.Content -> showContent(state.items,state.page)
             is StartListState.Error   -> showError(state.msg)
         }
     }
@@ -117,11 +126,11 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
                 }
             }
 
-        }, viewLifecycleOwner, androidx.lifecycle.Lifecycle.State.RESUMED)
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    private fun handleBeerClick(beerModel: BeerModel) {
-
+    private fun handleBeerClick(beer: Beer) {
+        beer.id?.let { mainActivity.openDetails(beerId = it) }
     }
 
 }
