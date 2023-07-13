@@ -13,7 +13,6 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.beerpunkapp.R
 import com.example.beerpunkapp.databinding.FragmentDetailsBinding
-import com.example.beerpunkapp.databinding.FragmentStartBinding
 import com.example.beerpunkapp.domain.entity.Beer
 import com.example.beerpunkapp.domain.usecase.GetBeerByIdUseCase
 import com.example.beerpunkapp.domain.usecase.GetRandomBeerUseCase
@@ -79,16 +78,16 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(){
             errorContent.isVisible = false
             contentContainer.isVisible = true
 
-            detailsFirstBrewedContent.text = beers[0].brew_date ?: "--date is missing--"
-            detailsDescriptionContent.text = beers[0].description ?: "--description is missing--"
-            detailsTagContent.text = beers[0].tags ?: "--tag is missing--"
+            detailsFirstBrewedContent.text = beers[0].brew_date ?: getString(R.string.details_id_placeholder_nulldata)
+            detailsDescriptionContent.text = beers[0].description ?: getString(R.string.details_description_placeholder_nulldata)
+            detailsTagContent.text = beers[0].tags ?: getString(R.string.details_tag_placeholder_nulldata)
             //detailsTagContent.text = beers[0].ingredients?.yeast ?: "--tag is missing--"
-            detailsAbvContent.text = beers[0].abv ?: "--?--"
-            detailsEbcContent.text = beers[0].ebc ?: "--?--"
-            detailsIbuContent.text = beers[0].ibu ?: "--?--"
-            detailsSrmContent.text = beers[0].srm ?: "--?--"
-            detailsToolbar.title = beers[0].name ?: "--name is missing--"
-            detailsYeastContent.text = beers[0].ingredients?.yeast ?: "--yeast is missing--"
+            detailsAbvContent.text = beers[0].abv ?: getString(R.string.details_nums_placeholder_nulldata)
+            detailsEbcContent.text = beers[0].ebc ?: getString(R.string.details_nums_placeholder_nulldata)
+            detailsIbuContent.text = beers[0].ibu ?: getString(R.string.details_nums_placeholder_nulldata)
+            detailsSrmContent.text = beers[0].srm ?: getString(R.string.details_nums_placeholder_nulldata)
+            detailsToolbar.title = beers[0].name ?: getString(R.string.details_name_placeholder_nulldata)
+            detailsYeastContent.text = beers[0].ingredients?.yeast ?: getString(R.string.details_yeast_placeholder_nulldata)
             for (i in beers[0].food.indices){
                 detailsFoodContent.append(beers[0].food[i])
                 if (i < beers[0].food.size - 1){

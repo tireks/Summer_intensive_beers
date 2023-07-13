@@ -38,7 +38,6 @@ class StartViewHolder(
     private val binding: ItemBeerBinding
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(beer: Beer, beerClickListener: (Beer) -> Unit){
-        //itemView.context
         var res = itemView.context.resources
         with(binding){
             itemId.text = beer.id.toString()

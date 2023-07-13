@@ -63,5 +63,12 @@
     <string name="details_malt_header">Malt:</string>
     <string name="details_hops_header">Hops:</string>
 
+    <string name="details_id_placeholder_nulldata">--date is missing--</string>
+    <string name="details_description_placeholder_nulldata">--description is missing--</string>
+    <string name="details_tag_placeholder_nulldata">--tag is missing--</string>
+    <string name="details_nums_placeholder_nulldata">--?--</string>
+    <string name="details_name_placeholder_nulldata">--name is missing--</string>
+    <string name="details_yeast_placeholder_nulldata">--yeast is missing--</string>
+
 
 </resources>

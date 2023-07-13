@@ -18,15 +18,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        /*val appBarConfiguration = AppBarConfiguration(navController.graph)
-        findViewById<Toolbar>(R.id.main_toolbar)
-            .setupWithNavController(navController, appBarConfiguration)*/
-        /*val collapsingToolbarLayout = findViewById<CollapsingToolbarLayout>(R.id.collapsing_details_toolbar)
-        val detailsToolbar = findViewById<Toolbar>(R.id.details_toolbar)
-        val navHostFragment = supportFragmentManager.findFragmentById(androidx.navigation.fragment.R.id.nav_host_fragment_container) as NavHostFragment
-        val navController1 = navHostFragment.navController
-        val appBarConfiguration1 = AppBarConfiguration(navController1.graph)
-        collapsingToolbarLayout.setupWithNavController(detailsToolbar, navController1, appBarConfiguration1)*/
     }
 
     override fun onStart() {

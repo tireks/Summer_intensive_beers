@@ -23,8 +23,6 @@ import kotlin.math.abs
 
 class StartFragment : BaseFragment<FragmentStartBinding>(){
 
-    /*private val mToolbar by lazy { binding.mainToolbar }*/
-
     override fun inflateViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -45,7 +43,6 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
         binding.startRecyclerView.adapter = StartAdapter(::handleBeerClick)
         viewModel.state.observe(viewLifecycleOwner, ::handleState)
         loadData()
-        //setupMenu()
     }
 
     override fun onResume() {
@@ -130,7 +127,6 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
     }
 
     private fun handleRandomClick() {
-        //mainActivity.openRandomBeer()
         mainActivity.openDetails(-1) // все эти пляски с положительным\отрицательным id возможно не очень корректно,
                                                     // но мне для рандома хотелось использовать инфраструктуру details,
                                                     // ибо там по сути все то же самое
