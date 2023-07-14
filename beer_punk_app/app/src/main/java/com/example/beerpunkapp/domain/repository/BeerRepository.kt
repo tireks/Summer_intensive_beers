@@ -8,4 +8,9 @@ interface BeerRepository {
     suspend fun getById(id: Long): List<Beer>
 
     suspend fun getRandomBeer() : List<Beer>
+
+    suspend fun getBeersBySearch(
+        yeast: String?,
+        ebcGreater: String?,
+        food: String?,) : List<Beer>
 }

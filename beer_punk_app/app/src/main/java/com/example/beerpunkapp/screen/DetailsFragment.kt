@@ -133,7 +133,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(){
 
     override fun onResume() {
         super.onResume()
-        mainActivity.supportActionBar?.hide()
+        //mainActivity.supportActionBar?.hide()
         mainActivity.setSupportActionBar(binding.detailsToolbar)
         mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

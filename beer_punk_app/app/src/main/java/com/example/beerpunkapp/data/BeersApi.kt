@@ -15,4 +15,11 @@ interface BeersApi {
     @GET("beers/random")
     suspend fun getRandomBeer() : List<BeerModel>
 
+    @GET("beers")
+    suspend fun getBeersBySearch(
+        @Query("yeast") yeast: String?,
+        @Query("ebc_gt") ebcGreater: String?,
+        @Query("food") food: String?,
+    ): List<BeerModel>
+
 }
