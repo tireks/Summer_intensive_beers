@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_startFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_searchFormFragment"
+            app:destination="@id/searchFormFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -24,5 +27,29 @@
             android:defaultValue="0L"
             app:argType="long"
             />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFormFragment"
+        android:name="com.example.beerpunkapp.screen.SearchFormFragment"
+        android:label="fragment_search_form"
+        tools:layout="@layout/fragment_search_form" >
+        <action
+            android:id="@+id/action_searchFormFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.example.beerpunkapp.screen.SearchResultFragment"
+        android:label="fragment_search_result"
+        tools:layout="@layout/fragment_search_result" >
+        <argument
+            android:name="paramList"
+            app:nullable="true"
+            app:argType="string[]"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>
