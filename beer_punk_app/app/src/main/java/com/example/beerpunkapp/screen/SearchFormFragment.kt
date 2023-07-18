@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewmodel.initializer
@@ -17,6 +18,7 @@ import com.example.beerpunkapp.presentation.SearchFormState
 import com.example.beerpunkapp.presentation.SearchFormViewModel
 import com.example.beerpunkapp.presentation.StartListState
 import com.example.beerpunkapp.presentation.StartViewModel
+import com.example.beerpunkapp.utilits.AppEditText
 import com.example.beerpunkapp.utilits.mainActivity
 import com.example.beerpunkapp.utilits.showToast
 
@@ -64,7 +66,10 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
 
     private fun handleSearchButtonClick() {
         val paramList = arrayListOf<String>()
-        with(binding){
+        getEditTextMap().forEach { (appEditTextEnums, editText) ->
+            paramList.add(appEditTextEnums.fieldTag + "|" + editText.text.ifEmpty { "" })
+        }
+        /*with(binding){
             if (!search1.text.isEmpty()){
                 paramList.add(search1.text.toString())
             }
@@ -81,9 +86,41 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
             } else{
                 paramList.add("")
             }
-        }
+        }*/
         showToast("asd")
-        mainActivity.openSearchResult(paramList.toTypedArray())
+       // mainActivity.openSearchResult(paramList.toTypedArray())
     }
+
+    private fun getEditTextMap(): Map<AppEditText, EditText>{
+        fun abvControl() : Pair<AppEditText, EditText>{
+            with(binding){
+                if (searchFormAbvToggleGroup.checkedButtonId == searchFormAbvToggleButtonGreater.id){
+                    return AppEditText.AbvGt to binding.searchFormAbvEditText
+                } else{
+                    return AppEditText.AbvLt to binding.searchFormAbvEditText
+                }
+            }
+        }
+// todo поля реально должно быть два, на каждое больше-меньше, и сканить надо оба поля,
+//  но нужно проверять, не нарушен ли ввод, функции проверки должны быть реализованы в вьюмодели
+//  и при ошибке дергать новый стейт ошибки(пусть какоенибудь диалоговое окно дергается)
+
+        return mapOf(
+                abvControl(),
+                AppEditText.IbuGt to binding.searchFormIbuEditText,
+                AppEditText.IbuLt to binding.searchFormIbuEditText,
+                AppEditText.EbcGt to binding.searchFormEbcEditText,
+                AppEditText.EbcLt to binding.searchFormEbcEditText,
+                AppEditText.BeerName to binding.searchFormNameEditText,
+                AppEditText.Yeast to binding.searchFormYeastEditText,
+                AppEditText.BrewedBefore to binding.searchFormDateEditText,
+                AppEditText.BrewedAfter to binding.searchFormDateEditText,
+                AppEditText.Hops to binding.searchFormHopsEditText,
+                AppEditText.Malt to binding.searchFormMaltEditText,
+                AppEditText.Food to binding.searchFormFoodEditText
+        )
+    }
+
+
 
 }
