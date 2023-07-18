@@ -46,6 +46,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
+                    android:id="@+id/search_form_name_editText"
                     style="@style/search_form_content_style"
                     android:hint="@string/search_form_editText_label"
                     app:layout_constraintEnd_toEndOf="@id/search_form_name_header"
@@ -69,6 +70,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
+                    android:id="@+id/search_form_yeast_editText"
                     style="@style/search_form_content_style"
                     android:hint="@string/search_form_editText_label"
                     app:layout_constraintEnd_toEndOf="@id/search_form_yeast_header"
@@ -93,6 +95,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
+                    android:id="@+id/search_form_hops_editText"
                     style="@style/search_form_content_style"
                     android:hint="@string/search_form_editText_label"
                     app:layout_constraintEnd_toEndOf="@id/search_form_hops_header"
@@ -117,6 +120,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
+                    android:id="@+id/search_form_malt_editText"
                     style="@style/search_form_content_style"
                     android:hint="@string/search_form_editText_label"
                     app:layout_constraintEnd_toEndOf="@id/search_form_malt_header"
@@ -141,6 +145,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
+                    android:id="@+id/search_form_food_editText"
                     style="@style/search_form_content_style"
                     android:hint="@string/search_form_editText_label"
                     app:layout_constraintEnd_toEndOf="@id/search_form_food_header"
@@ -165,7 +170,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/search_form_date_input"
+                    android:id="@+id/search_form_date_editText"
                     style="@style/search_form_content_style"
                     android:hint="@string/search_form_editText_label"
                     app:layout_constraintEnd_toEndOf="@id/search_form_date_header"
@@ -180,7 +185,7 @@
                     android:layout_marginTop="@dimen/standart_small_margin"
                     app:layout_constraintEnd_toEndOf="@id/search_form_date_header"
                     app:layout_constraintStart_toStartOf="@id/search_form_date_header"
-                    app:layout_constraintTop_toBottomOf="@+id/search_form_date_input"
+                    app:layout_constraintTop_toBottomOf="@+id/search_form_date_editText"
                     app:singleSelection="true"
                     >
 
@@ -219,7 +224,7 @@
                     android:text="@string/search_form_abv_header"
                     />
                 <EditText
-                    android:id="@+id/search_form_abv_input"
+                    android:id="@+id/search_form_abv_editText"
                     style="@style/search_form_content_style"
                     android:hint="@string/search_form_editText_label"
                     app:layout_constraintEnd_toEndOf="@id/search_form_abv_header"
@@ -234,7 +239,7 @@
                     android:layout_marginTop="@dimen/standart_small_margin"
                     app:layout_constraintEnd_toEndOf="@id/search_form_abv_header"
                     app:layout_constraintStart_toStartOf="@id/search_form_abv_header"
-                    app:layout_constraintTop_toBottomOf="@+id/search_form_abv_input"
+                    app:layout_constraintTop_toBottomOf="@+id/search_form_abv_editText"
                     app:singleSelection="true"
                     android:orientation="vertical"
                     >
@@ -277,7 +282,7 @@
                     android:text="@string/search_form_ibu_header"
                     />
                 <EditText
-                    android:id="@+id/search_form_ibu_input"
+                    android:id="@+id/search_form_ibu_editText"
                     style="@style/search_form_content_style"
                     android:hint="@string/search_form_editText_label"
                     app:layout_constraintEnd_toEndOf="@id/search_form_ibu_header"
@@ -292,7 +297,7 @@
                     android:layout_marginTop="@dimen/standart_small_margin"
                     app:layout_constraintEnd_toEndOf="@id/search_form_ibu_header"
                     app:layout_constraintStart_toStartOf="@id/search_form_ibu_header"
-                    app:layout_constraintTop_toBottomOf="@+id/search_form_ibu_input"
+                    app:layout_constraintTop_toBottomOf="@+id/search_form_ibu_editText"
                     app:singleSelection="true"
                     android:orientation="vertical"
                     >
@@ -336,7 +341,7 @@
                     android:text="@string/search_form_ebc_header"
                     />
                 <EditText
-                    android:id="@+id/search_form_ebc_input"
+                    android:id="@+id/search_form_ebc_editText"
                     style="@style/search_form_content_style"
                     android:hint="@string/search_form_editText_label"
                     app:layout_constraintEnd_toEndOf="@id/search_form_ebc_header"
@@ -351,7 +356,7 @@
                     android:layout_marginTop="@dimen/standart_small_margin"
                     app:layout_constraintEnd_toEndOf="@id/search_form_ebc_header"
                     app:layout_constraintStart_toStartOf="@id/search_form_ebc_header"
-                    app:layout_constraintTop_toBottomOf="@+id/search_form_ebc_input"
+                    app:layout_constraintTop_toBottomOf="@+id/search_form_ebc_editText"
                     app:singleSelection="true"
                     android:orientation="vertical"
                     >
