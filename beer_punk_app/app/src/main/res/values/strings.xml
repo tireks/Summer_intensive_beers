@@ -82,7 +82,7 @@
     <string name="search_form_date_toggle_before">Before</string>
     <string name="search_form_date_toggle_after">After</string>
     <string name="search_form_abv_header">ABV   greater/less then:</string>
-    <string name="search_form_ibu_header">IBU   greater/less then:</string>
+    <string name="search_form_ibu_header">IBU       greater/less then:</string>
     <string name="search_form_ebc_header">EBC   greater/less then:</string>
     <string name="search_form_date_toggle_greater">Greater</string>
     <string name="search_form_date_toggle_less">less</string>
