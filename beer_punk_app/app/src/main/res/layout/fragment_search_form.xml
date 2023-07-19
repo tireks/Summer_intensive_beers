@@ -168,41 +168,47 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/search_form_date_editText"
-                    style="@style/search_form_content_style"
-                    android:hint="@string/search_form_editText_label"
-                    app:layout_constraintEnd_toEndOf="@id/search_form_date_header"
-                    app:layout_constraintStart_toStartOf="@id/search_form_date_header"
-                    app:layout_constraintTop_toBottomOf="@id/search_form_date_header" />
-
-                <com.google.android.material.button.MaterialButtonToggleGroup
-                    android:id="@+id/search_form_date_toggleGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:checkedButton="@id/search_form_date_toggle_button_before"
-                    android:layout_marginTop="@dimen/standart_small_margin"
-                    app:layout_constraintEnd_toEndOf="@id/search_form_date_header"
-                    app:layout_constraintStart_toStartOf="@id/search_form_date_header"
-                    app:layout_constraintTop_toBottomOf="@+id/search_form_date_editText"
-                    app:singleSelection="true"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    style="@style/search_form_subpalette_style"
+                    app:layout_constraintTop_toBottomOf="@id/search_form_date_header"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     >
-
-                    <Button
-                        android:id="@+id/search_form_date_toggle_button_before"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/search_form_date_toggle_before" />
-
-                    <Button
-                        android:id="@+id/search_form_date_toggle_button_after"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/search_form_date_toggle_after" />
-                </com.google.android.material.button.MaterialButtonToggleGroup>
+                    <TextView
+                        android:id="@+id/search_form_after_label"
+                        style="@style/search_form_header_style"
+                        android:layout_width="0dp"
+                        android:text="@string/search_form_date_label_after"
+                        app:layout_constraintEnd_toStartOf="@id/search_form_before_label"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginEnd="@dimen/half_standart_margin"
+                        />
+                    <TextView
+                        android:id="@+id/search_form_before_label"
+                        style="@style/search_form_header_style"
+                        android:layout_width="0dp"
+                        android:text="@string/search_form_date_label_before"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/search_form_after_label"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginStart="@dimen/half_standart_margin"
+                        />
+                    <EditText
+                        android:id="@+id/search_form_date_before_editText"
+                        style="@style/search_form_content_style"
+                        android:hint="@string/search_form_editText_label"
+                        app:layout_constraintEnd_toEndOf="@id/search_form_before_label"
+                        app:layout_constraintStart_toStartOf="@id/search_form_before_label"
+                        app:layout_constraintTop_toBottomOf="@id/search_form_before_label" />
+                    <EditText
+                        android:id="@+id/search_form_date_after_editText"
+                        style="@style/search_form_content_style"
+                        android:hint="@string/search_form_editText_label"
+                        app:layout_constraintEnd_toEndOf="@id/search_form_after_label"
+                        app:layout_constraintStart_toStartOf="@id/search_form_after_label"
+                        app:layout_constraintTop_toBottomOf="@id/search_form_after_label" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -223,45 +229,46 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:text="@string/search_form_abv_header"
                     />
-                <EditText
-                    android:id="@+id/search_form_abv_editText"
-                    style="@style/search_form_content_style"
-                    android:hint="@string/search_form_editText_label"
-                    app:layout_constraintEnd_toEndOf="@id/search_form_abv_header"
-                    app:layout_constraintStart_toStartOf="@id/search_form_abv_header"
-                    app:layout_constraintTop_toBottomOf="@id/search_form_abv_header" />
-
-                <com.google.android.material.button.MaterialButtonToggleGroup
-                    android:id="@+id/search_form_abv_toggleGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:checkedButton="@id/search_form_abv_toggle_button_greater"
-                    android:layout_marginTop="@dimen/standart_small_margin"
-                    app:layout_constraintEnd_toEndOf="@id/search_form_abv_header"
-                    app:layout_constraintStart_toStartOf="@id/search_form_abv_header"
-                    app:layout_constraintTop_toBottomOf="@+id/search_form_abv_editText"
-                    app:singleSelection="true"
-                    android:orientation="vertical"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    style="@style/search_form_subpalette_style"
+                    app:layout_constraintTop_toBottomOf="@id/search_form_abv_header"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     >
-
-                    <Button
-                        android:id="@+id/search_form_abv_toggle_button_greater"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/search_form_date_toggle_greater"
-                        android:paddingHorizontal="@dimen/standart_small_margin"
+                    <TextView
+                        android:id="@+id/search_form_abv_greater_label"
+                        style="@style/search_form_header_style"
+                        android:layout_width="0dp"
+                        android:text="@string/search_form_date_label_greater"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         />
-
-                    <Button
-                        android:id="@+id/search_form_abv_toggle_button_less"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/search_form_date_toggle_less"
-                        android:paddingHorizontal="@dimen/standart_small_margin"
+                    <EditText
+                        android:id="@+id/search_form_abv_greater_editText"
+                        style="@style/search_form_content_style"
+                        android:hint="@string/search_form_editText_label"
+                        app:layout_constraintEnd_toEndOf="@id/search_form_abv_greater_label"
+                        app:layout_constraintStart_toStartOf="@id/search_form_abv_greater_label"
+                        app:layout_constraintTop_toBottomOf="@id/search_form_abv_greater_label" />
+                    <TextView
+                        android:id="@+id/search_form_abv_less_label"
+                        style="@style/search_form_header_style"
+                        android:layout_width="0dp"
+                        android:text="@string/search_form_date_label_less"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/search_form_abv_greater_editText"
+                        android:layout_marginTop="@dimen/standart_small_margin"
                         />
-                </com.google.android.material.button.MaterialButtonToggleGroup>
+                    <EditText
+                        android:id="@+id/search_form_abv_less_editText"
+                        style="@style/search_form_content_style"
+                        android:hint="@string/search_form_editText_label"
+                        app:layout_constraintEnd_toEndOf="@id/search_form_abv_less_label"
+                        app:layout_constraintStart_toStartOf="@id/search_form_abv_less_label"
+                        app:layout_constraintTop_toBottomOf="@id/search_form_abv_less_label" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -281,45 +288,46 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:text="@string/search_form_ibu_header"
                     />
-                <EditText
-                    android:id="@+id/search_form_ibu_editText"
-                    style="@style/search_form_content_style"
-                    android:hint="@string/search_form_editText_label"
-                    app:layout_constraintEnd_toEndOf="@id/search_form_ibu_header"
-                    app:layout_constraintStart_toStartOf="@id/search_form_ibu_header"
-                    app:layout_constraintTop_toBottomOf="@id/search_form_ibu_header" />
-
-                <com.google.android.material.button.MaterialButtonToggleGroup
-                    android:id="@+id/search_form_ibu_toggleGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:checkedButton="@id/search_form_ibu_toggle_button_greater"
-                    android:layout_marginTop="@dimen/standart_small_margin"
-                    app:layout_constraintEnd_toEndOf="@id/search_form_ibu_header"
-                    app:layout_constraintStart_toStartOf="@id/search_form_ibu_header"
-                    app:layout_constraintTop_toBottomOf="@+id/search_form_ibu_editText"
-                    app:singleSelection="true"
-                    android:orientation="vertical"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    style="@style/search_form_subpalette_style"
+                    app:layout_constraintTop_toBottomOf="@id/search_form_ibu_header"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     >
-
-                    <Button
-                        android:id="@+id/search_form_ibu_toggle_button_greater"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/search_form_date_toggle_greater"
-                        android:paddingHorizontal="@dimen/standart_small_margin"
+                    <TextView
+                        android:id="@+id/search_form_ibu_greater_label"
+                        style="@style/search_form_header_style"
+                        android:layout_width="0dp"
+                        android:text="@string/search_form_date_label_greater"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         />
-
-                    <Button
-                        android:id="@+id/search_form_ibu_toggle_button_less"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/search_form_date_toggle_less"
-                        android:paddingHorizontal="@dimen/standart_small_margin"
+                    <EditText
+                        android:id="@+id/search_form_ibu_greater_editText"
+                        style="@style/search_form_content_style"
+                        android:hint="@string/search_form_editText_label"
+                        app:layout_constraintEnd_toEndOf="@id/search_form_ibu_greater_label"
+                        app:layout_constraintStart_toStartOf="@id/search_form_ibu_greater_label"
+                        app:layout_constraintTop_toBottomOf="@id/search_form_ibu_greater_label" />
+                    <TextView
+                        android:id="@+id/search_form_ibu_less_label"
+                        style="@style/search_form_header_style"
+                        android:layout_width="0dp"
+                        android:text="@string/search_form_date_label_less"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/search_form_ibu_greater_editText"
+                        android:layout_marginTop="@dimen/standart_small_margin"
                         />
-                </com.google.android.material.button.MaterialButtonToggleGroup>
+                    <EditText
+                        android:id="@+id/search_form_ibu_less_editText"
+                        style="@style/search_form_content_style"
+                        android:hint="@string/search_form_editText_label"
+                        app:layout_constraintEnd_toEndOf="@id/search_form_ibu_less_label"
+                        app:layout_constraintStart_toStartOf="@id/search_form_ibu_less_label"
+                        app:layout_constraintTop_toBottomOf="@id/search_form_ibu_less_label" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -340,45 +348,46 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:text="@string/search_form_ebc_header"
                     />
-                <EditText
-                    android:id="@+id/search_form_ebc_editText"
-                    style="@style/search_form_content_style"
-                    android:hint="@string/search_form_editText_label"
-                    app:layout_constraintEnd_toEndOf="@id/search_form_ebc_header"
-                    app:layout_constraintStart_toStartOf="@id/search_form_ebc_header"
-                    app:layout_constraintTop_toBottomOf="@id/search_form_ebc_header" />
-
-                <com.google.android.material.button.MaterialButtonToggleGroup
-                    android:id="@+id/search_form_ebc_toggleGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:checkedButton="@id/search_form_ebc_toggle_button_greater"
-                    android:layout_marginTop="@dimen/standart_small_margin"
-                    app:layout_constraintEnd_toEndOf="@id/search_form_ebc_header"
-                    app:layout_constraintStart_toStartOf="@id/search_form_ebc_header"
-                    app:layout_constraintTop_toBottomOf="@+id/search_form_ebc_editText"
-                    app:singleSelection="true"
-                    android:orientation="vertical"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    style="@style/search_form_subpalette_style"
+                    app:layout_constraintTop_toBottomOf="@id/search_form_ebc_header"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     >
-
-                    <Button
-                        android:id="@+id/search_form_ebc_toggle_button_greater"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/search_form_date_toggle_greater"
-                        android:paddingHorizontal="@dimen/standart_small_margin"
+                    <TextView
+                        android:id="@+id/search_form_ebc_greater_label"
+                        style="@style/search_form_header_style"
+                        android:layout_width="0dp"
+                        android:text="@string/search_form_date_label_greater"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         />
-
-                    <Button
-                        android:id="@+id/search_form_ebc_toggle_button_less"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/search_form_date_toggle_less"
-                        android:paddingHorizontal="@dimen/standart_small_margin"
+                    <EditText
+                        android:id="@+id/search_form_ebc_greater_editText"
+                        style="@style/search_form_content_style"
+                        android:hint="@string/search_form_editText_label"
+                        app:layout_constraintEnd_toEndOf="@id/search_form_ebc_greater_label"
+                        app:layout_constraintStart_toStartOf="@id/search_form_ebc_greater_label"
+                        app:layout_constraintTop_toBottomOf="@id/search_form_ebc_greater_label" />
+                    <TextView
+                        android:id="@+id/search_form_ebc_less_label"
+                        style="@style/search_form_header_style"
+                        android:layout_width="0dp"
+                        android:text="@string/search_form_date_label_less"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/search_form_ebc_greater_editText"
+                        android:layout_marginTop="@dimen/standart_small_margin"
                         />
-                </com.google.android.material.button.MaterialButtonToggleGroup>
+                    <EditText
+                        android:id="@+id/search_form_ebc_less_editText"
+                        style="@style/search_form_content_style"
+                        android:hint="@string/search_form_editText_label"
+                        app:layout_constraintEnd_toEndOf="@id/search_form_ebc_less_label"
+                        app:layout_constraintStart_toStartOf="@id/search_form_ebc_less_label"
+                        app:layout_constraintTop_toBottomOf="@id/search_form_ebc_less_label" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

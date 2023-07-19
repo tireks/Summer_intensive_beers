@@ -103,8 +103,8 @@
     <style name="search_form_subpalette_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/standart_small_margin</item>
-        <item name="android:layout_marginEnd">@dimen/standart_small_margin</item>
+        <item name="android:layout_marginStart">@dimen/standart_margin</item>
+        <item name="android:layout_marginEnd">@dimen/standart_margin</item>
         <item name="android:layout_marginTop">@dimen/standart_small_margin</item>
         <item name="android:layout_marginBottom">@dimen/standart_small_margin</item>
         <item name="android:paddingBottom">@dimen/standart_margin</item>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="standart_margin">16dp</dimen>
+    <dimen name="half_standart_margin">8dp</dimen>
     <dimen name="standart_small_margin">6dp</dimen>
     <dimen name="half_small_margin">3dp</dimen>
     <dimen name="large_text">18sp</dimen>

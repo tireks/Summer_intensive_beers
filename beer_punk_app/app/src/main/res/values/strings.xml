@@ -78,13 +78,13 @@
     <string name="search_form_hops_header">Hops list contains:</string>
     <string name="search_form_malt_header">Malt list contains:</string>
     <string name="search_form_food_header">Food list contains:</string>
-    <string name="search_form_date_header">Brewed before/after:</string>
-    <string name="search_form_date_toggle_before">Before</string>
-    <string name="search_form_date_toggle_after">After</string>
-    <string name="search_form_abv_header">ABV   greater/less then:</string>
-    <string name="search_form_ibu_header">IBU       greater/less then:</string>
-    <string name="search_form_ebc_header">EBC   greater/less then:</string>
-    <string name="search_form_date_toggle_greater">Greater</string>
-    <string name="search_form_date_toggle_less">less</string>
+    <string name="search_form_date_header">Brewed</string>
+    <string name="search_form_date_label_before">Before:</string>
+    <string name="search_form_date_label_after">After:</string>
+    <string name="search_form_abv_header">ABV</string>
+    <string name="search_form_ibu_header">IBU</string>
+    <string name="search_form_ebc_header">EBC</string>
+    <string name="search_form_date_label_greater">Greater:</string>
+    <string name="search_form_date_label_less">Less:</string>
 
 </resources>
