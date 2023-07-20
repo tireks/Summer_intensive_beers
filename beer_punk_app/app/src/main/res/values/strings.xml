@@ -74,6 +74,7 @@
     <string name="search_form_button_label">apply filters</string>
     <string name="search_form_name_header">Name contains:</string>
     <string name="search_form_editText_label">Enter:</string>
+    <string name="search_form_editText_date_label">Pick date:</string>
     <string name="search_form_yeast_header">Yeast label contains:</string>
     <string name="search_form_hops_header">Hops list contains:</string>
     <string name="search_form_malt_header">Malt list contains:</string>
@@ -86,5 +87,7 @@
     <string name="search_form_ebc_header">EBC</string>
     <string name="search_form_date_label_greater">Greater:</string>
     <string name="search_form_date_label_less">Less:</string>
+    <string name="search_form_date_text_variable">%s.%s</string>
+
 
 </resources>
