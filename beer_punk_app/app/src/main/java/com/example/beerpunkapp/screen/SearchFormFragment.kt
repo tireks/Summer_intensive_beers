@@ -14,11 +14,9 @@ import com.example.beerpunkapp.R
 import com.example.beerpunkapp.databinding.FragmentSearchFormBinding
 import com.example.beerpunkapp.presentation.SearchFormState
 import com.example.beerpunkapp.presentation.SearchFormViewModel
-import com.example.beerpunkapp.presentation.StartViewModel
 import com.example.beerpunkapp.utilits.AppEditText
 import com.example.beerpunkapp.utilits.mainActivity
 import com.example.beerpunkapp.utilits.showToast
-import com.google.android.material.datepicker.MaterialDatePicker
 
 
 class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
@@ -59,12 +57,13 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
         with(binding){
             formContainer.isVisible = true
             searchButton.setOnClickListener { handleSearchButtonClick() }
-            searchFormDateBeforeEditText.setOnClickListener { handleDatePickClick() }
-            searchFormDateAfterEditText.setOnClickListener { handleDatePickClick() }
+            /*searchFormDateBeforeEditText.setOnClickListener { handleDatePickClick(view) }*/
+            searchFormDateBeforeEditText.setOnClickListener{handleDatePickClick(searchFormDateBeforeEditText)}
+            searchFormDateAfterEditText.setOnClickListener {handleDatePickClick(searchFormDateAfterEditText)}
         }
     }
 
-    private fun handleDatePickClick() {
+    private fun handleDatePickClick(view: View?) {
         /*val datePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
@@ -77,7 +76,15 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
                 context = it,
                 themeResId = R.style.Style_MonthYearPickerDialog_Purple,
                 onDateSetListener = { year, month ->
-                    binding.searchFormDateBeforeEditText.setText(String.format(resources.getString(R.string.search_form_date_text_variable), month, year))
+                    when (view){
+                        binding.searchFormDateBeforeEditText -> {
+                            binding.searchFormDateBeforeEditText.setText(String.format(resources.getString(R.string.search_form_date_text_variable), month+1, year))
+                        }
+                        binding.searchFormDateAfterEditText -> {
+                            binding.searchFormDateAfterEditText.setText(String.format(resources.getString(R.string.search_form_date_text_variable), month+1, year))
+
+                        }
+                    }
                 }
             )
                 .build()
