@@ -1,7 +1,6 @@
 package com.example.beerpunkapp.screen
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,17 +9,16 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import by.dzmitry_lakisau.month_year_picker_dialog.MonthYearPickerDialog
 import com.example.beerpunkapp.R
-import com.example.beerpunkapp.databinding.FragmentDetailsBinding
 import com.example.beerpunkapp.databinding.FragmentSearchFormBinding
-import com.example.beerpunkapp.domain.usecase.GetAllBeersUseCase
 import com.example.beerpunkapp.presentation.SearchFormState
 import com.example.beerpunkapp.presentation.SearchFormViewModel
-import com.example.beerpunkapp.presentation.StartListState
 import com.example.beerpunkapp.presentation.StartViewModel
 import com.example.beerpunkapp.utilits.AppEditText
 import com.example.beerpunkapp.utilits.mainActivity
 import com.example.beerpunkapp.utilits.showToast
+import com.google.android.material.datepicker.MaterialDatePicker
 
 
 class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
@@ -61,60 +59,58 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
         with(binding){
             formContainer.isVisible = true
             searchButton.setOnClickListener { handleSearchButtonClick() }
+            searchFormDateBeforeEditText.setOnClickListener { handleDatePickClick() }
+            searchFormDateAfterEditText.setOnClickListener { handleDatePickClick() }
         }
+    }
+
+    private fun handleDatePickClick() {
+        /*val datePicker =
+            MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select date")
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build()
+        datePicker.show(parentFragmentManager, "tag")*/
+
+        val dialog = context?.let {
+            MonthYearPickerDialog.Builder(
+                context = it,
+                themeResId = R.style.Style_MonthYearPickerDialog_Purple,
+                onDateSetListener = { year, month ->
+                    binding.searchFormDateBeforeEditText.setText(String.format(resources.getString(R.string.search_form_date_text_variable), month, year))
+                }
+            )
+                .build()
+        }
+        dialog?.show()
     }
 
     private fun handleSearchButtonClick() {
         val paramList = arrayListOf<String>()
         getEditTextMap().forEach { (appEditTextEnums, editText) ->
-            paramList.add(appEditTextEnums.fieldTag + "|" + editText.text.ifEmpty { "" })
+            if (editText.text.isNotEmpty()){
+                paramList.add(appEditTextEnums.fieldTag + "|" + editText.text)
+            }
         }
-        /*with(binding){
-            if (!search1.text.isEmpty()){
-                paramList.add(search1.text.toString())
-            }
-            else {
-                paramList.add("")
-            }
-            if (!search2.text.isEmpty()){
-                paramList.add(search2.text.toString())
-            } else {
-                paramList.add("")
-            }
-            if (!search3.text.isEmpty()){
-                paramList.add(search3.text.toString())
-            } else{
-                paramList.add("")
-            }
-        }*/
         showToast("asd")
-       // mainActivity.openSearchResult(paramList.toTypedArray())
+       mainActivity.openSearchResult(paramList.toTypedArray())
     }
 
     private fun getEditTextMap(): Map<AppEditText, EditText>{
-        fun abvControl() : Pair<AppEditText, EditText>{
-            with(binding){
-                if (searchFormAbvToggleGroup.checkedButtonId == searchFormAbvToggleButtonGreater.id){
-                    return AppEditText.AbvGt to binding.searchFormAbvEditText
-                } else{
-                    return AppEditText.AbvLt to binding.searchFormAbvEditText
-                }
-            }
-        }
 // todo поля реально должно быть два, на каждое больше-меньше, и сканить надо оба поля,
 //  но нужно проверять, не нарушен ли ввод, функции проверки должны быть реализованы в вьюмодели
 //  и при ошибке дергать новый стейт ошибки(пусть какоенибудь диалоговое окно дергается)
-
         return mapOf(
-                abvControl(),
-                AppEditText.IbuGt to binding.searchFormIbuEditText,
-                AppEditText.IbuLt to binding.searchFormIbuEditText,
-                AppEditText.EbcGt to binding.searchFormEbcEditText,
-                AppEditText.EbcLt to binding.searchFormEbcEditText,
+                AppEditText.AbvGt to binding.searchFormAbvGreaterEditText,
+                AppEditText.AbvLt to binding.searchFormAbvLessEditText,
+                AppEditText.IbuGt to binding.searchFormIbuGreaterEditText,
+                AppEditText.IbuLt to binding.searchFormIbuLessEditText,
+                AppEditText.EbcGt to binding.searchFormEbcGreaterEditText,
+                AppEditText.EbcLt to binding.searchFormEbcLessEditText,
                 AppEditText.BeerName to binding.searchFormNameEditText,
                 AppEditText.Yeast to binding.searchFormYeastEditText,
-                AppEditText.BrewedBefore to binding.searchFormDateEditText,
-                AppEditText.BrewedAfter to binding.searchFormDateEditText,
+                AppEditText.BrewedBefore to binding.searchFormDateBeforeEditText,
+                AppEditText.BrewedAfter to binding.searchFormDateAfterEditText,
                 AppEditText.Hops to binding.searchFormHopsEditText,
                 AppEditText.Malt to binding.searchFormMaltEditText,
                 AppEditText.Food to binding.searchFormFoodEditText
