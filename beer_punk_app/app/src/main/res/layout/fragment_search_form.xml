@@ -197,14 +197,16 @@
                     <EditText
                         android:id="@+id/search_form_date_before_editText"
                         style="@style/search_form_content_style"
-                        android:hint="@string/search_form_editText_label"
+                        android:hint="@string/search_form_editText_date_label"
+                        android:focusable="false"
                         app:layout_constraintEnd_toEndOf="@id/search_form_before_label"
                         app:layout_constraintStart_toStartOf="@id/search_form_before_label"
                         app:layout_constraintTop_toBottomOf="@id/search_form_before_label" />
                     <EditText
                         android:id="@+id/search_form_date_after_editText"
                         style="@style/search_form_content_style"
-                        android:hint="@string/search_form_editText_label"
+                        android:hint="@string/search_form_editText_date_label"
+                        android:focusable="false"
                         app:layout_constraintEnd_toEndOf="@id/search_form_after_label"
                         app:layout_constraintStart_toStartOf="@id/search_form_after_label"
                         app:layout_constraintTop_toBottomOf="@id/search_form_after_label" />
@@ -247,6 +249,7 @@
                     <EditText
                         android:id="@+id/search_form_abv_greater_editText"
                         style="@style/search_form_content_style"
+                        android:inputType="number|numberDecimal"
                         android:hint="@string/search_form_editText_label"
                         app:layout_constraintEnd_toEndOf="@id/search_form_abv_greater_label"
                         app:layout_constraintStart_toStartOf="@id/search_form_abv_greater_label"
@@ -264,6 +267,7 @@
                     <EditText
                         android:id="@+id/search_form_abv_less_editText"
                         style="@style/search_form_content_style"
+                        android:inputType="number|numberDecimal"
                         android:hint="@string/search_form_editText_label"
                         app:layout_constraintEnd_toEndOf="@id/search_form_abv_less_label"
                         app:layout_constraintStart_toStartOf="@id/search_form_abv_less_label"
@@ -307,6 +311,7 @@
                         android:id="@+id/search_form_ibu_greater_editText"
                         style="@style/search_form_content_style"
                         android:hint="@string/search_form_editText_label"
+                        android:inputType="number|numberDecimal"
                         app:layout_constraintEnd_toEndOf="@id/search_form_ibu_greater_label"
                         app:layout_constraintStart_toStartOf="@id/search_form_ibu_greater_label"
                         app:layout_constraintTop_toBottomOf="@id/search_form_ibu_greater_label" />
@@ -324,6 +329,7 @@
                         android:id="@+id/search_form_ibu_less_editText"
                         style="@style/search_form_content_style"
                         android:hint="@string/search_form_editText_label"
+                        android:inputType="number|numberDecimal"
                         app:layout_constraintEnd_toEndOf="@id/search_form_ibu_less_label"
                         app:layout_constraintStart_toStartOf="@id/search_form_ibu_less_label"
                         app:layout_constraintTop_toBottomOf="@id/search_form_ibu_less_label" />
@@ -367,6 +373,7 @@
                         android:id="@+id/search_form_ebc_greater_editText"
                         style="@style/search_form_content_style"
                         android:hint="@string/search_form_editText_label"
+                        android:inputType="number|numberDecimal"
                         app:layout_constraintEnd_toEndOf="@id/search_form_ebc_greater_label"
                         app:layout_constraintStart_toStartOf="@id/search_form_ebc_greater_label"
                         app:layout_constraintTop_toBottomOf="@id/search_form_ebc_greater_label" />
@@ -384,6 +391,7 @@
                         android:id="@+id/search_form_ebc_less_editText"
                         style="@style/search_form_content_style"
                         android:hint="@string/search_form_editText_label"
+                        android:inputType="number|numberDecimal"
                         app:layout_constraintEnd_toEndOf="@id/search_form_ebc_less_label"
                         app:layout_constraintStart_toStartOf="@id/search_form_ebc_less_label"
                         app:layout_constraintTop_toBottomOf="@id/search_form_ebc_less_label" />
