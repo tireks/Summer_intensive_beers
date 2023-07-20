@@ -37,7 +37,6 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //binding.startRecyclerView.adapter = StartAdapter(::handleBeerClick)
         viewModel.state.observe(viewLifecycleOwner, ::handleState)
     }
 
@@ -57,19 +56,12 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
         with(binding){
             formContainer.isVisible = true
             searchButton.setOnClickListener { handleSearchButtonClick() }
-            /*searchFormDateBeforeEditText.setOnClickListener { handleDatePickClick(view) }*/
             searchFormDateBeforeEditText.setOnClickListener{handleDatePickClick(searchFormDateBeforeEditText)}
             searchFormDateAfterEditText.setOnClickListener {handleDatePickClick(searchFormDateAfterEditText)}
         }
     }
 
     private fun handleDatePickClick(view: View?) {
-        /*val datePicker =
-            MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Select date")
-                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                .build()
-        datePicker.show(parentFragmentManager, "tag")*/
 
         val dialog = context?.let {
             MonthYearPickerDialog.Builder(
