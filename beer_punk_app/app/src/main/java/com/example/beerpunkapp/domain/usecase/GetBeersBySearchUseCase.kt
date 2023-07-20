@@ -6,8 +6,6 @@ import com.example.beerpunkapp.domain.repository.BeerRepository
 class GetBeersBySearchUseCase (
     private val repository: BeerRepository
     ){
-    suspend operator fun invoke(yeast: String?,
-                                ebcGreater: String?,
-                                food: String?): List<Beer> =
-        repository.getBeersBySearch(yeast, ebcGreater, food)
+    suspend operator fun invoke(parameters: Map<String, String>): List<Beer> =
+        repository.getBeersBySearch(parameters)
 }
