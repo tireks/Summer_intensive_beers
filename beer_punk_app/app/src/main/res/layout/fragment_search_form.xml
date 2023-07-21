@@ -210,6 +210,32 @@
                         app:layout_constraintEnd_toEndOf="@id/search_form_after_label"
                         app:layout_constraintStart_toStartOf="@id/search_form_after_label"
                         app:layout_constraintTop_toBottomOf="@id/search_form_after_label" />
+                    <ImageButton
+                        android:id="@+id/search_form_date_after_clearButton"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        app:layout_constraintEnd_toEndOf="@id/search_form_date_after_editText"
+                        app:layout_constraintTop_toTopOf="@id/search_form_date_after_editText"
+                        app:layout_constraintBottom_toBottomOf="@id/search_form_date_after_editText"
+                        android:src="@drawable/search_form_clear_pic"
+                        android:paddingHorizontal="0dp"
+                        android:minWidth="0dp"
+                        android:visibility="invisible"
+                        />
+                    <ImageButton
+                        android:id="@+id/search_form_date_before_clearButton"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        app:layout_constraintEnd_toEndOf="@id/search_form_date_before_editText"
+                        app:layout_constraintTop_toTopOf="@id/search_form_date_before_editText"
+                        app:layout_constraintBottom_toBottomOf="@id/search_form_date_before_editText"
+                        android:src="@drawable/search_form_clear_pic"
+                        android:paddingHorizontal="0dp"
+                        android:minWidth="0dp"
+                        android:visibility="invisible"
+                        />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
