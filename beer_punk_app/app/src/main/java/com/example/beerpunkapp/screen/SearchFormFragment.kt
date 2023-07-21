@@ -15,8 +15,8 @@ import com.example.beerpunkapp.databinding.FragmentSearchFormBinding
 import com.example.beerpunkapp.presentation.SearchFormState
 import com.example.beerpunkapp.presentation.SearchFormViewModel
 import com.example.beerpunkapp.utilits.AppEditText
+import com.example.beerpunkapp.utilits.AppTextWatcher
 import com.example.beerpunkapp.utilits.mainActivity
-import com.example.beerpunkapp.utilits.showToast
 
 
 class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
@@ -57,8 +57,27 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
             formContainer.isVisible = true
             searchButton.setOnClickListener { handleSearchButtonClick() }
             searchFormDateBeforeEditText.setOnClickListener{handleDatePickClick(searchFormDateBeforeEditText)}
-            searchFormDateAfterEditText.setOnClickListener {handleDatePickClick(searchFormDateAfterEditText)}
+            searchFormDateAfterEditText.setOnClickListener{handleDatePickClick(searchFormDateAfterEditText)}
+            searchFormDateBeforeEditText.addTextChangedListener(AppTextWatcher{
+                clearButtonsHandle(searchFormDateBeforeEditText)
+            })
+            searchFormDateAfterEditText.addTextChangedListener(AppTextWatcher{
+                clearButtonsHandle(searchFormDateAfterEditText)
+            })
+            searchFormDateBeforeClearButton.setOnClickListener { searchFormDateBeforeEditText.text.clear() }
+            searchFormDateAfterClearButton.setOnClickListener { searchFormDateAfterEditText.text.clear() }
         }
+    }
+
+    private fun clearButtonsHandle(view: View) {
+        with (binding){
+            if (view == searchFormDateBeforeEditText){
+                searchFormDateBeforeClearButton.isVisible = searchFormDateBeforeEditText.text.isNotEmpty()
+            } else {
+                searchFormDateAfterClearButton.isVisible = searchFormDateAfterEditText.text.isNotEmpty()
+            }
+        }
+
     }
 
     private fun handleDatePickClick(view: View?) {
@@ -78,6 +97,7 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
                         }
                     }
                 }
+                
             )
                 .build()
         }
@@ -91,7 +111,6 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
                 paramList.add(appEditTextEnums.fieldTag + "|" + editText.text)
             }
         }
-        showToast("asd")
        mainActivity.openSearchResult(paramList.toTypedArray())
     }
 
