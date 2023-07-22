@@ -88,6 +88,7 @@
     <string name="search_form_date_label_greater">Greater:</string>
     <string name="search_form_date_label_less">Less:</string>
     <string name="search_form_date_text_variable">%s.%s</string>
+    <string name="search_form_date_text_variable_zero">0%s.%s</string>
 
 
 </resources>
