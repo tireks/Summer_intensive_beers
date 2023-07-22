@@ -1,12 +1,14 @@
 package com.example.beerpunkapp.screen
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import by.dzmitry_lakisau.month_year_picker_dialog.MonthYearPickerDialog
@@ -17,6 +19,9 @@ import com.example.beerpunkapp.presentation.SearchFormViewModel
 import com.example.beerpunkapp.utilits.AppEditText
 import com.example.beerpunkapp.utilits.AppTextWatcher
 import com.example.beerpunkapp.utilits.mainActivity
+import com.example.beerpunkapp.utilits.showToast
+import kotlinx.coroutines.launch
+import java.time.Month
 
 
 class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
@@ -38,6 +43,7 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.state.observe(viewLifecycleOwner, ::handleState)
+        showForm()
     }
 
     override fun onResume() {
@@ -48,60 +54,96 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
 
     private fun handleState(state: SearchFormState) {
         when (state){
-            is SearchFormState.Initial -> showForm()
+            is SearchFormState.UnlockedSearch -> binding.searchButton.isEnabled = true
+            is SearchFormState.LockedSearch -> binding.searchButton.isEnabled = false
         }
     }
 
     private fun showForm() {
         with(binding){
             formContainer.isVisible = true
+            binding.searchButton.isEnabled = true
             searchButton.setOnClickListener { handleSearchButtonClick() }
-            searchFormDateBeforeEditText.setOnClickListener{handleDatePickClick(searchFormDateBeforeEditText)}
-            searchFormDateAfterEditText.setOnClickListener{handleDatePickClick(searchFormDateAfterEditText)}
+            searchFormDateBeforeEditText.setOnClickListener{handleDatePickClick(it)}
+            searchFormDateAfterEditText.setOnClickListener{handleDatePickClick(it)}
             searchFormDateBeforeEditText.addTextChangedListener(AppTextWatcher{
-                clearButtonsHandle(searchFormDateBeforeEditText)
+                handleClearButtonsActivator(searchFormDateBeforeEditText, it)
+                validateDates()
             })
             searchFormDateAfterEditText.addTextChangedListener(AppTextWatcher{
-                clearButtonsHandle(searchFormDateAfterEditText)
+                handleClearButtonsActivator(searchFormDateAfterEditText, it)
+                validateDates()
             })
             searchFormDateBeforeClearButton.setOnClickListener { searchFormDateBeforeEditText.text.clear() }
             searchFormDateAfterClearButton.setOnClickListener { searchFormDateAfterEditText.text.clear() }
         }
     }
 
-    private fun clearButtonsHandle(view: View) {
-        with (binding){
-            if (view == searchFormDateBeforeEditText){
-                searchFormDateBeforeClearButton.isVisible = searchFormDateBeforeEditText.text.isNotEmpty()
-            } else {
-                searchFormDateAfterClearButton.isVisible = searchFormDateAfterEditText.text.isNotEmpty()
+    private fun validateDates() {
+        lifecycleScope.launch {
+            if (viewModel.uncorrectDates(
+                    binding.searchFormDateAfterEditText.text.toString(),
+                    binding.searchFormDateBeforeEditText.text.toString()
+                )
+            ) {
+                showToast("alaaaaaarm")
             }
         }
 
     }
 
-    private fun handleDatePickClick(view: View?) {
+    private fun handleClearButtonsActivator(view: View, text: Editable) {
+        lifecycleScope.launch{
+            with (binding){
+                if (view == searchFormDateBeforeEditText){
+                    searchFormDateBeforeClearButton.isVisible = text.isNotEmpty()
+                } else {
+                    searchFormDateAfterClearButton.isVisible = text.isNotEmpty()
+                }
+            }
+        }
 
+    }
+
+    private fun handleDatePickClick(view: View) {
         val dialog = context?.let {
-            MonthYearPickerDialog.Builder(
-                context = it,
+            MonthYearPickerDialog.Builder(context = it,
                 themeResId = R.style.Style_MonthYearPickerDialog_Purple,
                 onDateSetListener = { year, month ->
-                    when (view){
-                        binding.searchFormDateBeforeEditText -> {
-                            binding.searchFormDateBeforeEditText.setText(String.format(resources.getString(R.string.search_form_date_text_variable), month+1, year))
-                        }
-                        binding.searchFormDateAfterEditText -> {
-                            binding.searchFormDateAfterEditText.setText(String.format(resources.getString(R.string.search_form_date_text_variable), month+1, year))
-
-                        }
-                    }
+                   dateAdapter(view, year, month)
                 }
-                
-            )
-                .build()
+
+            ).build()
         }
         dialog?.show()
+    }
+
+    private fun dateAdapter(view: View, year: Int, month: Int){
+        val template: String = if(month < 10){
+            resources.getString(R.string.search_form_date_text_variable_zero)
+        } else {
+            resources.getString(R.string.search_form_date_text_variable)
+        }
+        when (view) {
+            binding.searchFormDateBeforeEditText -> {
+                binding.searchFormDateBeforeEditText.setText(
+                    String.format(
+                        template,
+                        month + 1,
+                        year
+                    )
+                )
+            }
+            binding.searchFormDateAfterEditText -> {
+                binding.searchFormDateAfterEditText.setText(
+                    String.format(
+                        template,
+                        month + 1,
+                        year
+                    )
+                )
+            }
+        }
     }
 
     private fun handleSearchButtonClick() {

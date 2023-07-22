@@ -1,5 +1,6 @@
 package com.example.beerpunkapp.presentation
 
 sealed interface SearchFormState{
-    object Initial : SearchFormState
+    object UnlockedSearch : SearchFormState
+    object LockedSearch : SearchFormState
 }
