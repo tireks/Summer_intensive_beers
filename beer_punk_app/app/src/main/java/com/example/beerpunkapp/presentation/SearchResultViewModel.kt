@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.beerpunkapp.domain.usecase.GetBeersBySearchUseCase
+import com.example.beerpunkapp.utilits.showToast
 import kotlinx.coroutines.launch
 
 class SearchResultViewModel (
@@ -17,23 +18,13 @@ class SearchResultViewModel (
 
     fun loadData (paramArray: Array<String>){
         viewModelScope.launch {
-            var yeast : String? = ""
-            var ebcGt : String? = ""
-            var food : String? = ""
-
-            _state.value = SearchResultState.Loading
-
-            yeast = paramArray[0].ifEmpty {
-                null
-            }
-            ebcGt = paramArray[1].ifEmpty {
-                null
-            }
-            food = paramArray[2].ifEmpty {
-                null
+            val parametersMap = mutableMapOf<String, String>()
+            for (i in paramArray.indices){
+                val separatorIndex = paramArray[i].indexOf("|")
+                parametersMap[paramArray[i].substring(0, separatorIndex)] = paramArray[i].substring(separatorIndex + 1)
             }
             try {
-                val beers = useCase(yeast, ebcGt, food)
+                val beers = useCase(parametersMap)
                 // Тут изменяет состояние для отображения списка займов: передаем полученный список займов из сети
                 _state.value = SearchResultState.Content(beers)
             } catch (e: Exception) {

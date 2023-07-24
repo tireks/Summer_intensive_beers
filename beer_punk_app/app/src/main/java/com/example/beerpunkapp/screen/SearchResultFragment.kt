@@ -52,7 +52,7 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
     }
 
     private fun loadData() {
-        args.paramList?.let { viewModel.loadData(it) }  //todo тут стоит использовать трай кэч
+        args.paramList?.let { viewModel.loadData(it) }
     }
 
     private fun handleState(state: SearchResultState) {
