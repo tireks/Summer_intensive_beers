@@ -64,8 +64,8 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
             formContainer.isVisible = true
             binding.searchButton.isEnabled = true
             searchButton.setOnClickListener { handleSearchButtonClick() }
-            searchFormDateBeforeEditText.setOnClickListener{handleDatePickClick(it)}
-            searchFormDateAfterEditText.setOnClickListener{handleDatePickClick(it)}
+            searchFormDateBeforeEditText.setOnClickListener{handleDatePickClick(it as EditText)}
+            searchFormDateAfterEditText.setOnClickListener{handleDatePickClick(it as EditText)}
             searchFormDateBeforeEditText.addTextChangedListener(AppTextWatcher{
                 handleClearButtonsActivator(searchFormDateBeforeEditText, it)
                 validateDates()
@@ -105,7 +105,7 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
 
     }
 
-    private fun handleDatePickClick(view: View) {
+    private fun handleDatePickClick(view: EditText) {
         val dialog = context?.let {
             MonthYearPickerDialog.Builder(context = it,
                 themeResId = R.style.Style_MonthYearPickerDialog_Purple,
@@ -118,32 +118,19 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
         dialog?.show()
     }
 
-    private fun dateAdapter(view: View, year: Int, month: Int){
+    private fun dateAdapter(view: EditText, year: Int, month: Int){
         val template: String = if(month < 10){
             resources.getString(R.string.search_form_date_text_variable_zero)
         } else {
             resources.getString(R.string.search_form_date_text_variable)
         }
-        when (view) {
-            binding.searchFormDateBeforeEditText -> {
-                binding.searchFormDateBeforeEditText.setText(
-                    String.format(
-                        template,
-                        month + 1,
-                        year
-                    )
-                )
-            }
-            binding.searchFormDateAfterEditText -> {
-                binding.searchFormDateAfterEditText.setText(
-                    String.format(
-                        template,
-                        month + 1,
-                        year
-                    )
-                )
-            }
-        }
+        view.setText(
+            String.format(
+                template,
+                month + 1,
+                year
+            )
+        )
     }
 
     private fun handleSearchButtonClick() {
@@ -176,7 +163,4 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
                 AppEditText.Food to binding.searchFormFoodEditText
         )
     }
-
-
-
 }
