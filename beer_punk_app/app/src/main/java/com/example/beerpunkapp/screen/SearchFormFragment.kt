@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.content.res.ResourcesCompat.ThemeCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,12 +17,8 @@ import com.example.beerpunkapp.R
 import com.example.beerpunkapp.databinding.FragmentSearchFormBinding
 import com.example.beerpunkapp.presentation.SearchFormState
 import com.example.beerpunkapp.presentation.SearchFormViewModel
-import com.example.beerpunkapp.utilits.AppEditText
-import com.example.beerpunkapp.utilits.AppTextWatcher
-import com.example.beerpunkapp.utilits.mainActivity
-import com.example.beerpunkapp.utilits.showToast
+import com.example.beerpunkapp.utilits.*
 import kotlinx.coroutines.launch
-import java.time.Month
 
 
 class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
@@ -54,9 +51,17 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
 
     private fun handleState(state: SearchFormState) {
         when (state){
-            is SearchFormState.UnlockedSearch -> binding.searchButton.isEnabled = true
-            is SearchFormState.LockedSearch -> binding.searchButton.isEnabled = false
+            is SearchFormState.UnlockedSearch -> unlockSearch()
+            is SearchFormState.LockedSearch -> lockSearch()
         }
+    }
+
+    private fun lockSearch() {
+        binding.searchButton.isEnabled = false
+    }
+
+    private fun unlockSearch() {
+        binding.searchButton.isEnabled = true
     }
 
     private fun showForm() {
@@ -64,41 +69,96 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
             formContainer.isVisible = true
             binding.searchButton.isEnabled = true
             searchButton.setOnClickListener { handleSearchButtonClick() }
-            searchFormDateBeforeEditText.setOnClickListener{handleDatePickClick(it as EditText)}
-            searchFormDateAfterEditText.setOnClickListener{handleDatePickClick(it as EditText)}
-            searchFormDateBeforeEditText.addTextChangedListener(AppTextWatcher{
-                handleClearButtonsActivator(searchFormDateBeforeEditText, it)
+            dateBeforeEditText.setOnClickListener{handleDatePickClick(it as EditText)}
+            dateAfterEditText.setOnClickListener{handleDatePickClick(it as EditText)}
+            dateBeforeEditText.addTextChangedListener(AppTextWatcher{
+                handleClearButtonsActivator(dateBeforeEditText, it)
                 validateDates()
             })
-            searchFormDateAfterEditText.addTextChangedListener(AppTextWatcher{
-                handleClearButtonsActivator(searchFormDateAfterEditText, it)
+            dateAfterEditText.addTextChangedListener(AppTextWatcher{
+                handleClearButtonsActivator(dateAfterEditText, it)
                 validateDates()
             })
-            searchFormDateBeforeClearButton.setOnClickListener { searchFormDateBeforeEditText.text.clear() }
-            searchFormDateAfterClearButton.setOnClickListener { searchFormDateAfterEditText.text.clear() }
+            abvGreaterEditText.addTextChangedListener(AppTextWatcher { validateAbv() })
+            abvLessEditText.addTextChangedListener(AppTextWatcher { validateAbv() })
+            ibuGreaterEditText.addTextChangedListener(AppTextWatcher { validateIbu() })
+            ibuLessEditText.addTextChangedListener(AppTextWatcher { validateIbu() })
+            ebcGreaterEditText.addTextChangedListener(AppTextWatcher { validateEbc() })
+            ebcLessEditText.addTextChangedListener(AppTextWatcher { validateEbc() })
+            dateBeforeClearButton.setOnClickListener { dateBeforeEditText.text.clear() }
+            dateAfterClearButton.setOnClickListener { dateAfterEditText.text.clear() }
+        }
+    }
+
+    private fun validateEbc() {
+        lifecycleScope.launch {
+            if (viewModel.incorrectNumerics(
+                    binding.ebcGreaterEditText.text.toString(),
+                    binding.ebcLessEditText.text.toString(),
+                    AppBlockablePalettes.Ebc
+                )
+            ) {
+                turnRed(binding.ebcGreaterEditText,binding.ebcLessEditText)
+            } else {
+               turnNormal(binding.ebcGreaterEditText,binding.ebcLessEditText)
+            }
+        }
+    }
+
+    private fun validateIbu() {
+        lifecycleScope.launch {
+            if (viewModel.incorrectNumerics(
+                    binding.ibuGreaterEditText.text.toString(),
+                    binding.ibuLessEditText.text.toString(),
+                    AppBlockablePalettes.Ebc
+                )
+            ) {
+                turnRed(binding.ibuGreaterEditText,binding.ibuLessEditText)
+            } else {
+                turnNormal(binding.ibuGreaterEditText,binding.ibuLessEditText)
+            }
+        }
+    }
+
+    private fun validateAbv() {
+        lifecycleScope.launch {
+            if (viewModel.incorrectNumerics(
+                    binding.abvGreaterEditText.text.toString(),
+                    binding.abvLessEditText.text.toString(),
+                    AppBlockablePalettes.Abv
+                )
+            ) {
+                turnRed(binding.abvGreaterEditText,binding.abvLessEditText)
+            } else {
+                turnNormal(binding.abvGreaterEditText,binding.abvLessEditText)
+            }
         }
     }
 
     private fun validateDates() {
         lifecycleScope.launch {
-            if (viewModel.uncorrectDates(
-                    binding.searchFormDateAfterEditText.text.toString(),
-                    binding.searchFormDateBeforeEditText.text.toString()
+            if (viewModel.incorrectDates(
+                    binding.dateAfterEditText.text.toString(),
+                    binding.dateBeforeEditText.text.toString()
                 )
             ) {
-                showToast("alaaaaaarm")
+                turnRed(binding.dateAfterEditText,binding.dateBeforeEditText)
+            } else {
+                turnNormal(binding.dateAfterEditText,binding.dateBeforeEditText)
             }
         }
 
     }
 
+
+
     private fun handleClearButtonsActivator(view: View, text: Editable) {
         lifecycleScope.launch{
             with (binding){
-                if (view == searchFormDateBeforeEditText){
-                    searchFormDateBeforeClearButton.isVisible = text.isNotEmpty()
+                if (view == dateBeforeEditText){
+                    dateBeforeClearButton.isVisible = text.isNotEmpty()
                 } else {
-                    searchFormDateAfterClearButton.isVisible = text.isNotEmpty()
+                    dateAfterClearButton.isVisible = text.isNotEmpty()
                 }
             }
         }
@@ -112,7 +172,6 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
                 onDateSetListener = { year, month ->
                    dateAdapter(view, year, month)
                 }
-
             ).build()
         }
         dialog?.show()
@@ -143,24 +202,34 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
        mainActivity.openSearchResult(paramList.toTypedArray())
     }
 
+    private fun turnRed(editText: EditText, editText1: EditText){
+        editText.setBackgroundColor(resources.getColor(R.color.search_form_editText_red, mainActivity.theme))
+        editText1.setBackgroundColor(resources.getColor(R.color.search_form_editText_red, mainActivity.theme))
+    }
+
+    private fun turnNormal(editText: EditText, editText1: EditText){
+        editText.setBackgroundColor(resources.getColor(R.color.search_form_editText_purple, mainActivity.theme))
+        editText1.setBackgroundColor(resources.getColor(R.color.search_form_editText_purple, mainActivity.theme))
+    }
+
     private fun getEditTextMap(): Map<AppEditText, EditText>{
 // todo поля реально должно быть два, на каждое больше-меньше, и сканить надо оба поля,
 //  но нужно проверять, не нарушен ли ввод, функции проверки должны быть реализованы в вьюмодели
 //  и при ошибке дергать новый стейт ошибки(пусть какоенибудь диалоговое окно дергается)
         return mapOf(
-                AppEditText.AbvGt to binding.searchFormAbvGreaterEditText,
-                AppEditText.AbvLt to binding.searchFormAbvLessEditText,
-                AppEditText.IbuGt to binding.searchFormIbuGreaterEditText,
-                AppEditText.IbuLt to binding.searchFormIbuLessEditText,
-                AppEditText.EbcGt to binding.searchFormEbcGreaterEditText,
-                AppEditText.EbcLt to binding.searchFormEbcLessEditText,
-                AppEditText.BeerName to binding.searchFormNameEditText,
-                AppEditText.Yeast to binding.searchFormYeastEditText,
-                AppEditText.BrewedBefore to binding.searchFormDateBeforeEditText,
-                AppEditText.BrewedAfter to binding.searchFormDateAfterEditText,
-                AppEditText.Hops to binding.searchFormHopsEditText,
-                AppEditText.Malt to binding.searchFormMaltEditText,
-                AppEditText.Food to binding.searchFormFoodEditText
+                AppEditText.AbvGt to binding.abvGreaterEditText,
+                AppEditText.AbvLt to binding.abvLessEditText,
+                AppEditText.IbuGt to binding.ibuGreaterEditText,
+                AppEditText.IbuLt to binding.ibuLessEditText,
+                AppEditText.EbcGt to binding.ebcGreaterEditText,
+                AppEditText.EbcLt to binding.ebcLessEditText,
+                AppEditText.BeerName to binding.nameEditText,
+                AppEditText.Yeast to binding.yeastEditText,
+                AppEditText.BrewedBefore to binding.dateBeforeEditText,
+                AppEditText.BrewedAfter to binding.dateAfterEditText,
+                AppEditText.Hops to binding.hopsEditText,
+                AppEditText.Malt to binding.maltEditText,
+                AppEditText.Food to binding.foodEditText
         )
     }
 }

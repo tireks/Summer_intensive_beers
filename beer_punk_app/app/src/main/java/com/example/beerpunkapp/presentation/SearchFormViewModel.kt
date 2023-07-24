@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.beerpunkapp.utilits.AppBlockablePalettes
 import kotlinx.coroutines.async
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -12,18 +13,21 @@ import java.time.format.ResolverStyle
 class SearchFormViewModel () : ViewModel(){
     private val _state: MutableLiveData<SearchFormState> = MutableLiveData(SearchFormState.UnlockedSearch)
     val state: LiveData<SearchFormState> = _state
+    private val blockedPalettes = mutableListOf<AppBlockablePalettes>()
 
-    suspend fun uncorrectDates(stringDateAfter: String, stringDateBefore: String): Boolean{
+    suspend fun incorrectDates(stringDateLeft: String, stringDateRight: String): Boolean {
         val blockStatus = viewModelScope.async {
-            if (stringDateAfter.isEmpty() || stringDateBefore.isEmpty()){
+            if (stringDateLeft.isEmpty() || stringDateRight.isEmpty()) {
+                checkPaletteRemove(AppBlockablePalettes.Date)
                 return@async false
             } else {
-                val dateAfter = convertToDate(stringDateAfter)
-                val dateBefore = convertToDate(stringDateBefore)
-                if (dateAfter.isBefore(dateBefore) || dateAfter.isEqual(dateBefore)){
+                val dateLeft = convertToDate(stringDateLeft)
+                val dateRight = convertToDate(stringDateRight)
+                if (dateLeft.isBefore(dateRight) || dateLeft.isEqual(dateRight)) {
+                    checkPaletteRemove(AppBlockablePalettes.Date)
                     return@async false
                 } else {
-                    _state.value = SearchFormState.LockedSearch
+                    checkPaletteAdd(AppBlockablePalettes.Date)
                     return@async true
                 }
             }
@@ -38,5 +42,45 @@ class SearchFormViewModel () : ViewModel(){
                 .ofPattern("dd-MM-uuuu")
                 .withResolverStyle(ResolverStyle.STRICT)
         )
+    }
+
+    suspend fun incorrectNumerics(stringNumLeft: String, stringNumRight: String, palette: AppBlockablePalettes): Boolean{
+        val blockStatus = viewModelScope.async {
+            if (stringNumLeft.isEmpty() || stringNumRight.isEmpty()){
+                checkPaletteRemove(palette)
+                return@async false
+            } else {
+                if (stringNumRight.toDouble() >= stringNumLeft.toDouble()){
+                    checkPaletteRemove(palette)
+                    return@async false
+                } else {
+                    checkPaletteAdd(palette)
+                    return@async true
+                }
+            }
+        }
+        return blockStatus.await()
+    }
+
+    private fun checkPaletteAdd(palette: AppBlockablePalettes) {
+        if (!blockedPalettes.contains(palette)){
+            blockedPalettes.add(palette)
+            updateState()
+        }
+    }
+
+    private fun checkPaletteRemove(palette: AppBlockablePalettes) {
+        if (blockedPalettes.contains(palette)){
+            blockedPalettes.remove(palette)
+            updateState()
+        }
+    }
+
+    private fun updateState() {
+        if (blockedPalettes.isEmpty()){
+            _state.value = SearchFormState.UnlockedSearch
+        } else {
+            _state.value = SearchFormState.LockedSearch
+        }
     }
 }
