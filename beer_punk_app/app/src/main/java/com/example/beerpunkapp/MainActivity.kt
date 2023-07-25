@@ -7,6 +7,7 @@ import com.example.beerpunkapp.data.BeerRepositoryImpl
 import com.example.beerpunkapp.databinding.ActivityMainBinding
 import com.example.beerpunkapp.domain.repository.BeerRepository
 import com.example.beerpunkapp.screen.SearchFormFragmentDirections
+import com.example.beerpunkapp.screen.SearchResultFragmentDirections
 import com.example.beerpunkapp.screen.StartFragmentDirections
 
 class MainActivity : AppCompatActivity() {
@@ -47,6 +48,11 @@ class MainActivity : AppCompatActivity() {
 
     fun openSearchResult(paramList: Array<String>){
         val action = SearchFormFragmentDirections.actionSearchFormFragmentToSearchResultFragment(paramList)
+        navController.navigate(action)
+    }
+
+    fun openSearchDetails(beerId: Long){
+        val action = SearchResultFragmentDirections.actionSearchResultFragmentToDetailsFragment(beerId)
         navController.navigate(action)
     }
 
