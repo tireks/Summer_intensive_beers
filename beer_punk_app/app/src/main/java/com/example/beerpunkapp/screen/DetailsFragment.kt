@@ -65,7 +65,6 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(){
         with(binding) {
             progressBar.isVisible = false
             contentContainer.isVisible = false
-
             errorContent.isVisible = true
             errorText.text = msg
             errorButton.setOnClickListener { beerData() }
@@ -77,7 +76,6 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(){
             progressBar.isVisible = false
             errorContent.isVisible = false
             contentContainer.isVisible = true
-
             detailsFirstBrewedContent.text = beers[0].brew_date ?: getString(R.string.details_id_placeholder_nulldata)
             detailsDescriptionContent.text = beers[0].description ?: getString(R.string.details_description_placeholder_nulldata)
             detailsTagContent.text = beers[0].tags ?: getString(R.string.details_tag_placeholder_nulldata)

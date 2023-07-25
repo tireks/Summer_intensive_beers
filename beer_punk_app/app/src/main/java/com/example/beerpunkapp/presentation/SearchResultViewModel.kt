@@ -25,6 +25,9 @@ class SearchResultViewModel (
             }
             try {
                 val beers = useCase(parametersMap)
+                if (beers.isEmpty()){
+                    _state.value = SearchResultState.EmptyContent
+                }
                 // Тут изменяет состояние для отображения списка займов: передаем полученный список займов из сети
                 _state.value = SearchResultState.Content(beers)
             } catch (e: Exception) {

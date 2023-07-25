@@ -7,13 +7,12 @@ import com.example.beerpunkapp.data.BeerRepositoryImpl
 import com.example.beerpunkapp.databinding.ActivityMainBinding
 import com.example.beerpunkapp.domain.repository.BeerRepository
 import com.example.beerpunkapp.screen.SearchFormFragmentDirections
+import com.example.beerpunkapp.screen.SearchResultFragmentDirections
 import com.example.beerpunkapp.screen.StartFragmentDirections
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val navController get() = findNavController(R.id.mainDataContainer)
-
-    /*private val mToolbar by lazy { binding.mainToolbar }*/
 
     val repository: BeerRepository = BeerRepositoryImpl()
 
@@ -50,15 +49,15 @@ class MainActivity : AppCompatActivity() {
         navController.navigate(action)
     }
 
+    fun openSearchDetails(beerId: Long){
+        val action = SearchResultFragmentDirections.actionSearchResultFragmentToDetailsFragment(beerId)
+        navController.navigate(action)
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp()
     }
 //todo нужно попробовать реализовать фид-ленту с автопрогрузкой "следующей страницы"
-
-//todo нужно сделать навигацию с фрагмента результатов поиска на отображение конкретного
-// (как из стартового на детали)
-
-//todo наверное нужен новый стейт на результатах для пустого результата поиска
 
 //todo еще хэндл кнопки поиска можно перенести во вью модель,
 // для этого нужно поиграться с енумами(новое поле для содержимого эдиттекста)
