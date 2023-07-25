@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.BeerPunkApp.NoActionBar"
     tools:context=".screen.SearchFormFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -11,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/design_default_color_primary"
-        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/white" />
 
