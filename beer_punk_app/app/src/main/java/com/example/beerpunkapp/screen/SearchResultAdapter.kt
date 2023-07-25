@@ -9,7 +9,9 @@ import com.example.beerpunkapp.databinding.ItemBeerBinding
 import com.example.beerpunkapp.domain.entity.Beer
 import com.example.beerpunkapp.presentation.SearchResultViewModel
 
-class SearchResultAdapter () : RecyclerView.Adapter<SearchResultViewHolder>() {
+class SearchResultAdapter (
+    private val beerClickListener: (Beer) -> Unit)
+    : RecyclerView.Adapter<SearchResultViewHolder>() {
 
     var beers: List<Beer> = emptyList()
         set(value) {
@@ -27,14 +29,14 @@ class SearchResultAdapter () : RecyclerView.Adapter<SearchResultViewHolder>() {
 
 
     override fun onBindViewHolder(holder: SearchResultViewHolder, position: Int) {
-        holder.bind(beers[position])
+        holder.bind(beers[position], beerClickListener)
     }
 }
 
 class SearchResultViewHolder (
     private val binding: ItemBeerBinding
-) : RecyclerView.ViewHolder(binding.root){
-    fun bind(beer: Beer){
+) : RecyclerView.ViewHolder(binding.root) {
+    fun bind(beer: Beer, beerClickListener: (Beer) -> Unit){
         var res = itemView.context.resources
         with(binding){
             itemId.text = beer.id.toString()
@@ -47,5 +49,6 @@ class SearchResultViewHolder (
                 .error(R.drawable.recycler_view_placeholder)
                 .into(itemPhoto)
         }
+        itemView.setOnClickListener { beerClickListener(beer) }
     }
 }

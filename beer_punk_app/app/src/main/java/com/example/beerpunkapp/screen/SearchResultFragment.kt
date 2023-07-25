@@ -22,6 +22,7 @@ import com.example.beerpunkapp.presentation.StartListState
 import com.example.beerpunkapp.presentation.StartViewModel
 import com.example.beerpunkapp.utilits.mainActivity
 import com.example.beerpunkapp.utilits.showToast
+import kotlin.math.abs
 
 class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
 
@@ -46,9 +47,17 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
         super.onViewCreated(view, savedInstanceState)
         mainActivity.setSupportActionBar(binding.mainToolbar)
         viewModel.state.observe(viewLifecycleOwner, ::handleState)
-        binding.startRecyclerView.adapter = SearchResultAdapter()
+        binding.startRecyclerView.adapter = SearchResultAdapter(::handleBeerClick)
         loadData()
         mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun handleBeerClick(beer: Beer) {
+        try {
+            beer.id?.let { mainActivity.openSearchDetails(abs(it)) }
+        } catch (e: Exception){
+            showError(e.message.toString())
+        }
     }
 
     private fun loadData() {
