@@ -7,6 +7,8 @@ sealed interface SearchResultState{
 
     object Loading : SearchResultState
 
+    object EmptyContent : SearchResultState
+
     data class Content(val items: List<Beer>) : SearchResultState
 
     data class Error(val msg: String) : SearchResultState

@@ -47,7 +47,7 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
         super.onViewCreated(view, savedInstanceState)
         mainActivity.setSupportActionBar(binding.mainToolbar)
         viewModel.state.observe(viewLifecycleOwner, ::handleState)
-        binding.startRecyclerView.adapter = SearchResultAdapter(::handleBeerClick)
+        binding.searchRecyclerView.adapter = SearchResultAdapter(::handleBeerClick)
         loadData()
         mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -70,6 +70,16 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
             SearchResultState.Loading    -> showProgress()
             is SearchResultState.Content -> showContent(state.items)
             is SearchResultState.Error   -> showError(state.msg)
+            SearchResultState.EmptyContent -> showEmpty()
+        }
+    }
+
+    private fun showEmpty() {
+        with(binding){
+            progressBar.isVisible = false
+            errorContent.isVisible = false
+            recyclerViewContent.isVisible = false
+            emptyContainer.isVisible = true
         }
     }
 
@@ -90,7 +100,7 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
             progressBar.isVisible = false
             errorContent.isVisible = false
             recyclerViewContent.isVisible = true
-            (startRecyclerView.adapter as? SearchResultAdapter)?.beers = items
+            (searchRecyclerView.adapter as? SearchResultAdapter)?.beers = items
         }
     }
 
