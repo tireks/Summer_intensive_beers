@@ -14,8 +14,6 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val navController get() = findNavController(R.id.mainDataContainer)
 
-    /*private val mToolbar by lazy { binding.mainToolbar }*/
-
     val repository: BeerRepository = BeerRepositoryImpl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,11 +58,6 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp()
     }
 //todo нужно попробовать реализовать фид-ленту с автопрогрузкой "следующей страницы"
-
-//todo нужно сделать навигацию с фрагмента результатов поиска на отображение конкретного
-// (как из стартового на детали)
-
-//todo наверное нужен новый стейт на результатах для пустого результата поиска
 
 //todo еще хэндл кнопки поиска можно перенести во вью модель,
 // для этого нужно поиграться с енумами(новое поле для содержимого эдиттекста)
