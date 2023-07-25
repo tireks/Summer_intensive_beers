@@ -51,5 +51,8 @@
             app:nullable="true"
             app:argType="string[]"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_searchResultFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
 </navigation>
