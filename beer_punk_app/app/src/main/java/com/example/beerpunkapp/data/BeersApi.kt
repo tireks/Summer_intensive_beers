@@ -3,6 +3,7 @@ package com.example.beerpunkapp.data
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 interface BeersApi {
 
@@ -14,5 +15,8 @@ interface BeersApi {
 
     @GET("beers/random")
     suspend fun getRandomBeer() : List<BeerModel>
+
+    @GET("beers")
+    suspend fun getBeersBySearch(@QueryMap parameters : Map<String, String> ): List<BeerModel>
 
 }

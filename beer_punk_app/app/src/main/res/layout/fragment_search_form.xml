@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screen.SearchFormFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/main_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/design_default_color_primary"
+        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/white" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toTopOf="@id/bottom_buttonBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/form_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/acMenuGray">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/name_palette"
+                style="@style/search_form_palette_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/name_header"
+                    style="@style/search_form_header_style"
+                    android:text="@string/search_form_name_header"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/name_editText"
+                    style="@style/search_form_content_style"
+                    android:hint="@string/search_form_editText_label"
+                    app:layout_constraintEnd_toEndOf="@id/name_header"
+                    app:layout_constraintStart_toStartOf="@id/name_header"
+                    app:layout_constraintTop_toBottomOf="@id/name_header" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/yeast_palette"
+                style="@style/search_form_palette_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/name_palette">
+
+                <TextView
+                    android:id="@+id/yeast_header"
+                    style="@style/search_form_header_style"
+                    android:text="@string/search_form_yeast_header"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/yeast_editText"
+                    style="@style/search_form_content_style"
+                    android:hint="@string/search_form_editText_label"
+                    app:layout_constraintEnd_toEndOf="@id/yeast_header"
+                    app:layout_constraintStart_toStartOf="@id/yeast_header"
+                    app:layout_constraintTop_toBottomOf="@id/yeast_header" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/hops_palette"
+                style="@style/search_form_palette_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/yeast_palette">
+
+                <TextView
+                    android:id="@+id/hops_header"
+                    style="@style/search_form_header_style"
+                    android:text="@string/search_form_hops_header"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/hops_editText"
+                    style="@style/search_form_content_style"
+                    android:hint="@string/search_form_editText_label"
+                    app:layout_constraintEnd_toEndOf="@id/hops_header"
+                    app:layout_constraintStart_toStartOf="@id/hops_header"
+                    app:layout_constraintTop_toBottomOf="@id/hops_header" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/malt_palette"
+                style="@style/search_form_palette_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hops_palette">
+
+                <TextView
+                    android:id="@+id/malt_header"
+                    style="@style/search_form_header_style"
+                    android:text="@string/search_form_malt_header"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/malt_editText"
+                    style="@style/search_form_content_style"
+                    android:hint="@string/search_form_editText_label"
+                    app:layout_constraintEnd_toEndOf="@id/malt_header"
+                    app:layout_constraintStart_toStartOf="@id/malt_header"
+                    app:layout_constraintTop_toBottomOf="@id/malt_header" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/food_palette"
+                style="@style/search_form_palette_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/malt_palette">
+
+                <TextView
+                    android:id="@+id/food_header"
+                    style="@style/search_form_header_style"
+                    android:text="@string/search_form_food_header"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/food_editText"
+                    style="@style/search_form_content_style"
+                    android:hint="@string/search_form_editText_label"
+                    app:layout_constraintEnd_toEndOf="@id/food_header"
+                    app:layout_constraintStart_toStartOf="@id/food_header"
+                    app:layout_constraintTop_toBottomOf="@id/food_header" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/date_palette"
+                style="@style/search_form_palette_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/food_palette">
+
+                <TextView
+                    android:id="@+id/date_header"
+                    style="@style/search_form_header_style"
+                    android:text="@string/search_form_date_header"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    style="@style/search_form_subpalette_style"
+                    app:layout_constraintTop_toBottomOf="@id/date_header"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    >
+                    <TextView
+                        android:id="@+id/after_label"
+                        style="@style/search_form_header_style"
+                        android:layout_width="0dp"
+                        android:text="@string/search_form_date_label_after"
+                        app:layout_constraintEnd_toStartOf="@id/before_label"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginEnd="@dimen/half_standart_margin"
+                        />
+                    <TextView
+                        android:id="@+id/before_label"
+                        style="@style/search_form_header_style"
+                        android:layout_width="0dp"
+                        android:text="@string/search_form_date_label_before"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/after_label"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginStart="@dimen/half_standart_margin"
+                        />
+                    <EditText
+                        android:id="@+id/date_before_editText"
+                        style="@style/search_form_content_style"
+                        android:hint="@string/search_form_editText_date_label"
+                        android:focusable="false"
+                        app:layout_constraintEnd_toEndOf="@id/before_label"
+                        app:layout_constraintStart_toStartOf="@id/before_label"
+                        app:layout_constraintTop_toBottomOf="@id/before_label" />
+                    <EditText
+                        android:id="@+id/date_after_editText"
+                        style="@style/search_form_content_style"
+                        android:hint="@string/search_form_editText_date_label"
+                        android:focusable="false"
+                        app:layout_constraintEnd_toEndOf="@id/after_label"
+                        app:layout_constraintStart_toStartOf="@id/after_label"
+                        app:layout_constraintTop_toBottomOf="@id/after_label" />
+                    <ImageButton
+                        android:id="@+id/date_after_clearButton"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        app:layout_constraintEnd_toEndOf="@id/date_after_editText"
+                        app:layout_constraintTop_toTopOf="@id/date_after_editText"
+                        app:layout_constraintBottom_toBottomOf="@id/date_after_editText"
+                        android:src="@drawable/search_form_clear_pic"
+                        android:paddingHorizontal="0dp"
+                        android:minWidth="0dp"
+                        android:visibility="invisible"
+                        />
+                    <ImageButton
+                        android:id="@+id/date_before_clearButton"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        app:layout_constraintEnd_toEndOf="@id/date_before_editText"
+                        app:layout_constraintTop_toTopOf="@id/date_before_editText"
+                        app:layout_constraintBottom_toBottomOf="@id/date_before_editText"
+                        android:src="@drawable/search_form_clear_pic"
+                        android:paddingHorizontal="0dp"
+                        android:minWidth="0dp"
+                        android:visibility="invisible"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/abv_palette"
+                style="@style/search_form_halfpalette_style"
+                android:layout_marginStart="@dimen/standart_small_margin"
+                app:layout_constraintTop_toBottomOf="@id/date_palette"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ibu_palette"
+                app:layout_constraintBottom_toBottomOf="parent"
+                >
+                <TextView
+                    android:id="@+id/abv_header"
+                    style="@style/search_form_header_style"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/search_form_abv_header"
+                    />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    style="@style/search_form_subpalette_style"
+                    app:layout_constraintTop_toBottomOf="@id/abv_header"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    >
+                    <TextView
+                        android:id="@+id/abv_greater_label"
+                        style="@style/search_form_header_style"
+                        android:layout_width="0dp"
+                        android:text="@string/search_form_date_label_greater"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+                    <EditText
+                        android:id="@+id/abv_greater_editText"
+                        style="@style/search_form_content_style"
+                        android:inputType="number|numberDecimal"
+                        android:hint="@string/search_form_editText_label"
+                        app:layout_constraintEnd_toEndOf="@id/abv_greater_label"
+                        app:layout_constraintStart_toStartOf="@id/abv_greater_label"
+                        app:layout_constraintTop_toBottomOf="@id/abv_greater_label" />
+                    <TextView
+                        android:id="@+id/abv_less_label"
+                        style="@style/search_form_header_style"
+                        android:layout_width="0dp"
+                        android:text="@string/search_form_date_label_less"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/abv_greater_editText"
+                        android:layout_marginTop="@dimen/standart_small_margin"
+                        />
+                    <EditText
+                        android:id="@+id/abv_less_editText"
+                        style="@style/search_form_content_style"
+                        android:inputType="number|numberDecimal"
+                        android:hint="@string/search_form_editText_label"
+                        app:layout_constraintEnd_toEndOf="@id/abv_less_label"
+                        app:layout_constraintStart_toStartOf="@id/abv_less_label"
+                        app:layout_constraintTop_toBottomOf="@id/abv_less_label" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ibu_palette"
+                style="@style/search_form_halfpalette_style"
+                app:layout_constraintTop_toBottomOf="@id/date_palette"
+                app:layout_constraintStart_toEndOf="@id/abv_palette"
+                app:layout_constraintEnd_toStartOf="@id/ebc_palette"
+                app:layout_constraintBottom_toBottomOf="parent"
+                >
+                <TextView
+                    android:id="@+id/ibu_header"
+                    style="@style/search_form_header_style"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/search_form_ibu_header"
+                    />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    style="@style/search_form_subpalette_style"
+                    app:layout_constraintTop_toBottomOf="@id/ibu_header"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    >
+                    <TextView
+                        android:id="@+id/ibu_greater_label"
+                        style="@style/search_form_header_style"
+                        android:layout_width="0dp"
+                        android:text="@string/search_form_date_label_greater"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+                    <EditText
+                        android:id="@+id/ibu_greater_editText"
+                        style="@style/search_form_content_style"
+                        android:hint="@string/search_form_editText_label"
+                        android:inputType="number|numberDecimal"
+                        app:layout_constraintEnd_toEndOf="@id/ibu_greater_label"
+                        app:layout_constraintStart_toStartOf="@id/ibu_greater_label"
+                        app:layout_constraintTop_toBottomOf="@id/ibu_greater_label" />
+                    <TextView
+                        android:id="@+id/ibu_less_label"
+                        style="@style/search_form_header_style"
+                        android:layout_width="0dp"
+                        android:text="@string/search_form_date_label_less"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ibu_greater_editText"
+                        android:layout_marginTop="@dimen/standart_small_margin"
+                        />
+                    <EditText
+                        android:id="@+id/ibu_less_editText"
+                        style="@style/search_form_content_style"
+                        android:hint="@string/search_form_editText_label"
+                        android:inputType="number|numberDecimal"
+                        app:layout_constraintEnd_toEndOf="@id/ibu_less_label"
+                        app:layout_constraintStart_toStartOf="@id/ibu_less_label"
+                        app:layout_constraintTop_toBottomOf="@id/ibu_less_label" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ebc_palette"
+                style="@style/search_form_halfpalette_style"
+                android:layout_marginEnd="@dimen/standart_small_margin"
+                app:layout_constraintTop_toBottomOf="@id/date_palette"
+                app:layout_constraintStart_toEndOf="@id/ibu_palette"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                >
+                <TextView
+                    android:id="@+id/ebc_header"
+                    style="@style/search_form_header_style"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/search_form_ebc_header"
+                    />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    style="@style/search_form_subpalette_style"
+                    app:layout_constraintTop_toBottomOf="@id/ebc_header"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    >
+                    <TextView
+                        android:id="@+id/ebc_greater_label"
+                        style="@style/search_form_header_style"
+                        android:layout_width="0dp"
+                        android:text="@string/search_form_date_label_greater"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+                    <EditText
+                        android:id="@+id/ebc_greater_editText"
+                        style="@style/search_form_content_style"
+                        android:hint="@string/search_form_editText_label"
+                        android:inputType="number|numberDecimal"
+                        app:layout_constraintEnd_toEndOf="@id/ebc_greater_label"
+                        app:layout_constraintStart_toStartOf="@id/ebc_greater_label"
+                        app:layout_constraintTop_toBottomOf="@id/ebc_greater_label" />
+                    <TextView
+                        android:id="@+id/ebc_less_label"
+                        style="@style/search_form_header_style"
+                        android:layout_width="0dp"
+                        android:text="@string/search_form_date_label_less"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ebc_greater_editText"
+                        android:layout_marginTop="@dimen/standart_small_margin"
+                        />
+                    <EditText
+                        android:id="@+id/ebc_less_editText"
+                        style="@style/search_form_content_style"
+                        android:hint="@string/search_form_editText_label"
+                        android:inputType="number|numberDecimal"
+                        app:layout_constraintEnd_toEndOf="@id/ebc_less_label"
+                        app:layout_constraintStart_toStartOf="@id/ebc_less_label"
+                        app:layout_constraintTop_toBottomOf="@id/ebc_less_label" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_buttonBar"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/standart_margin"
+            android:layout_marginVertical="@dimen/standart_margin"
+            android:text="@string/search_form_button_label"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

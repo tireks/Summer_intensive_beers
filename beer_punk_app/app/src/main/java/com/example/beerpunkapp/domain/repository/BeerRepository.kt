@@ -8,4 +8,6 @@ interface BeerRepository {
     suspend fun getById(id: Long): List<Beer>
 
     suspend fun getRandomBeer() : List<Beer>
+
+    suspend fun getBeersBySearch(parameters: Map<String, String>) : List<Beer>
 }

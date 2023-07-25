@@ -10,14 +10,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.beerpunkapp.R
-import com.example.beerpunkapp.data.BeerModel
 import com.example.beerpunkapp.databinding.FragmentStartBinding
 import com.example.beerpunkapp.domain.entity.Beer
 import com.example.beerpunkapp.domain.usecase.GetAllBeersUseCase
 import com.example.beerpunkapp.presentation.StartListState
 import com.example.beerpunkapp.presentation.StartViewModel
 import com.example.beerpunkapp.utilits.mainActivity
-import com.example.beerpunkapp.utilits.showToast
 import kotlin.math.abs
 
 
@@ -111,7 +109,7 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.start_menu_btn_search -> {
-                        showToast("searchPlaceHolder")
+                        handleSearchClick()
                         true
                     }
                     R.id.start_menu_btn_random -> {
@@ -126,6 +124,10 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
+    private fun handleSearchClick() {
+        mainActivity.openSearchForm()
+    }
+
     private fun handleRandomClick() {
         mainActivity.openDetails(-1) // все эти пляски с положительным\отрицательным id возможно не очень корректно,
                                                     // но мне для рандома хотелось использовать инфраструктуру details,
@@ -133,7 +135,6 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
     }
 
     private fun handleBeerClick(beer: Beer) {
-        /*beer.id?.let { mainActivity.openDetails(abs(it)) }*/
         try {
             beer.id?.let { mainActivity.openDetails(abs(it)) }
         } catch (e: Exception){

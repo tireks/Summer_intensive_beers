@@ -65,4 +65,8 @@ class BeerRepositoryImpl : BeerRepository{
 
     override suspend fun getRandomBeer(): List<Beer> =
         beerApi.getRandomBeer().map { converter.convert(it) }
+
+    override suspend fun getBeersBySearch(parameters : Map<String, String>): List<Beer> =
+        beerApi.getBeersBySearch(parameters).map { converter.convert(it) }
+
 }

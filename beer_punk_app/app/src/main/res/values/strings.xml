@@ -71,4 +71,24 @@
     <string name="details_yeast_placeholder_nulldata">--yeast is missing--</string>
 
 
+    <string name="search_form_button_label">apply filters</string>
+    <string name="search_form_name_header">Name contains:</string>
+    <string name="search_form_editText_label">Enter:</string>
+    <string name="search_form_editText_date_label">Pick date:</string>
+    <string name="search_form_yeast_header">Yeast label contains:</string>
+    <string name="search_form_hops_header">Hops list contains:</string>
+    <string name="search_form_malt_header">Malt list contains:</string>
+    <string name="search_form_food_header">Food list contains:</string>
+    <string name="search_form_date_header">Brewed</string>
+    <string name="search_form_date_label_before">Before:</string>
+    <string name="search_form_date_label_after">After:</string>
+    <string name="search_form_abv_header">ABV</string>
+    <string name="search_form_ibu_header">IBU</string>
+    <string name="search_form_ebc_header">EBC</string>
+    <string name="search_form_date_label_greater">Greater:</string>
+    <string name="search_form_date_label_less">Less:</string>
+    <string name="search_form_date_text_variable">%s.%s</string>
+    <string name="search_form_date_text_variable_zero">0%s.%s</string>
+
+
 </resources>

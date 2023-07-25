@@ -57,7 +57,7 @@
 
 
 
-    <style name="random_beer_header_style">
+    <style name="search_form_header_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/standart_margin</item>
@@ -69,15 +69,16 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="random_beer_content_style">
+    <style name="search_form_content_style">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/medium_text</item>
+        <item name="android:textSize">@dimen/extra_large_text</item>
         <item name="android:layout_marginTop">@dimen/standart_small_margin</item>
         <item name="android:layout_marginBottom">@dimen/standart_small_margin</item>
+        <item name="android:background">@color/search_form_editText_purple</item>
     </style>
 
-    <style name="random_beer_palette_style">
+    <style name="search_form_palette_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/standart_small_margin</item>
@@ -88,24 +89,54 @@
         <item name="android:paddingBottom">@dimen/standart_margin</item>
     </style>
 
-    <style name="random_beer_halfpalette_style">
+    <style name="search_form_halfpalette_style">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/half_small_margin</item>
         <item name="android:layout_marginEnd">@dimen/half_small_margin</item>
         <item name="android:layout_marginTop">@dimen/standart_small_margin</item>
+        <item name="android:layout_marginBottom">@dimen/standart_small_margin</item>
         <item name="android:background">@color/white</item>
         <item name="android:paddingBottom">@dimen/standart_margin</item>
     </style>
 
-    <style name="random_beer_subpalette_style">
+    <style name="search_form_subpalette_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/standart_small_margin</item>
-        <item name="android:layout_marginEnd">@dimen/standart_small_margin</item>
+        <item name="android:layout_marginStart">@dimen/standart_margin</item>
+        <item name="android:layout_marginEnd">@dimen/standart_margin</item>
         <item name="android:layout_marginTop">@dimen/standart_small_margin</item>
         <item name="android:layout_marginBottom">@dimen/standart_small_margin</item>
         <item name="android:paddingBottom">@dimen/standart_margin</item>
         <item name="android:background">@color/lightGray</item>
     </style>
+
+    <style name="Style.MonthYearPickerDialog.Purple" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Style.DialogButton.Black</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Style.DialogButton.Purple</item>
+        <item name="headerBackgroundColor">@color/purple_500</item>
+        <item name="headerTextColor">#66000000</item>
+        <item name="headerTextColorSelected">@color/black</item>
+        <item name="monthBackgroundColorSelected">@color/purple_500</item>
+        <item name="monthTextColor">@color/black</item>
+        <item name="monthTextColorDisabled">#4F000000</item>
+        <item name="monthTextColorSelected">@color/black</item>
+        <item name="yearTextColor">@color/black</item>
+        <item name="yearTextColorSelected">@color/purple_500</item>
+    </style>
+
+    <style name="Style.DialogButton.Black" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Style.DialogButton.Purple" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/purple_500</item>
+    </style>
+
+    <style name="Style.DialogButton.White" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <dimen name="extra_large_text">22sp</dimen>
 </resources>
