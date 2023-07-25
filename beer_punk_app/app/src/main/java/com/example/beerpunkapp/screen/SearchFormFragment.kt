@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import androidx.core.content.res.ResourcesCompat.ThemeCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -73,64 +72,54 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
             dateAfterEditText.setOnClickListener{handleDatePickClick(it as EditText)}
             dateBeforeEditText.addTextChangedListener(AppTextWatcher{
                 handleClearButtonsActivator(dateBeforeEditText, it)
-                validateDates()
+                validateData(AppBlockablePalettes.Date)
             })
             dateAfterEditText.addTextChangedListener(AppTextWatcher{
                 handleClearButtonsActivator(dateAfterEditText, it)
-                validateDates()
+                validateData(AppBlockablePalettes.Date)
             })
-            abvGreaterEditText.addTextChangedListener(AppTextWatcher { validateAbv() })
-            abvLessEditText.addTextChangedListener(AppTextWatcher { validateAbv() })
-            ibuGreaterEditText.addTextChangedListener(AppTextWatcher { validateIbu() })
-            ibuLessEditText.addTextChangedListener(AppTextWatcher { validateIbu() })
-            ebcGreaterEditText.addTextChangedListener(AppTextWatcher { validateEbc() })
-            ebcLessEditText.addTextChangedListener(AppTextWatcher { validateEbc() })
+            abvGreaterEditText.addTextChangedListener(AppTextWatcher { validateData(AppBlockablePalettes.Abv) })
+            abvLessEditText.addTextChangedListener(AppTextWatcher { validateData(AppBlockablePalettes.Abv) })
+            ibuGreaterEditText.addTextChangedListener(AppTextWatcher { validateData(AppBlockablePalettes.Ibu) })
+            ibuLessEditText.addTextChangedListener(AppTextWatcher { validateData(AppBlockablePalettes.Ibu) })
+            ebcGreaterEditText.addTextChangedListener(AppTextWatcher { validateData(AppBlockablePalettes.Ebc) })
+            ebcLessEditText.addTextChangedListener(AppTextWatcher { validateData(AppBlockablePalettes.Ebc) })
             dateBeforeClearButton.setOnClickListener { dateBeforeEditText.text.clear() }
             dateAfterClearButton.setOnClickListener { dateAfterEditText.text.clear() }
         }
     }
 
-    private fun validateEbc() {
+    private fun validateData(palette: AppBlockablePalettes){
+        var editTextLeft: EditText
+        var editTextRight: EditText
         lifecycleScope.launch {
-            if (viewModel.incorrectNumerics(
-                    binding.ebcGreaterEditText.text.toString(),
-                    binding.ebcLessEditText.text.toString(),
-                    AppBlockablePalettes.Ebc
-                )
-            ) {
-                turnRed(binding.ebcGreaterEditText,binding.ebcLessEditText)
-            } else {
-               turnNormal(binding.ebcGreaterEditText,binding.ebcLessEditText)
+            when(palette){
+                AppBlockablePalettes.Abv -> {
+                    editTextLeft = binding.abvGreaterEditText
+                    editTextRight = binding.abvLessEditText
+                }
+                AppBlockablePalettes.Ibu -> {
+                    editTextLeft = binding.ibuGreaterEditText
+                    editTextRight = binding.ibuLessEditText
+                }
+                AppBlockablePalettes.Ebc -> {
+                    editTextLeft = binding.ebcGreaterEditText
+                    editTextRight = binding.ebcLessEditText
+                }
+                AppBlockablePalettes.Date -> {
+                    validateDates()
+                    return@launch
+                }
             }
-        }
-    }
-
-    private fun validateIbu() {
-        lifecycleScope.launch {
             if (viewModel.incorrectNumerics(
-                    binding.ibuGreaterEditText.text.toString(),
-                    binding.ibuLessEditText.text.toString(),
-                    AppBlockablePalettes.Ebc
+                    editTextLeft.text.toString(),
+                    editTextRight.text.toString(),
+                    palette
                 )
             ) {
-                turnRed(binding.ibuGreaterEditText,binding.ibuLessEditText)
+                turnRed(editTextLeft,editTextRight)
             } else {
-                turnNormal(binding.ibuGreaterEditText,binding.ibuLessEditText)
-            }
-        }
-    }
-
-    private fun validateAbv() {
-        lifecycleScope.launch {
-            if (viewModel.incorrectNumerics(
-                    binding.abvGreaterEditText.text.toString(),
-                    binding.abvLessEditText.text.toString(),
-                    AppBlockablePalettes.Abv
-                )
-            ) {
-                turnRed(binding.abvGreaterEditText,binding.abvLessEditText)
-            } else {
-                turnNormal(binding.abvGreaterEditText,binding.abvLessEditText)
+                turnNormal(editTextLeft,editTextRight)
             }
         }
     }
@@ -149,8 +138,6 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
         }
 
     }
-
-
 
     private fun handleClearButtonsActivator(view: View, text: Editable) {
         lifecycleScope.launch{
@@ -213,9 +200,6 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
     }
 
     private fun getEditTextMap(): Map<AppEditText, EditText>{
-// todo поля реально должно быть два, на каждое больше-меньше, и сканить надо оба поля,
-//  но нужно проверять, не нарушен ли ввод, функции проверки должны быть реализованы в вьюмодели
-//  и при ошибке дергать новый стейт ошибки(пусть какоенибудь диалоговое окно дергается)
         return mapOf(
                 AppEditText.AbvGt to binding.abvGreaterEditText,
                 AppEditText.AbvLt to binding.abvLessEditText,
