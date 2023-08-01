@@ -1,7 +1,8 @@
 package com.example.beerpunkapp.screen
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,18 +11,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.fragment.navArgs
-import com.example.beerpunkapp.R
-import com.example.beerpunkapp.databinding.FragmentDetailsBinding
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.beerpunkapp.databinding.FragmentSearchResultBinding
 import com.example.beerpunkapp.domain.entity.Beer
-import com.example.beerpunkapp.domain.usecase.GetAllBeersUseCase
 import com.example.beerpunkapp.domain.usecase.GetBeersBySearchUseCase
 import com.example.beerpunkapp.presentation.SearchResultState
 import com.example.beerpunkapp.presentation.SearchResultViewModel
-import com.example.beerpunkapp.presentation.StartListState
-import com.example.beerpunkapp.presentation.StartViewModel
+import com.example.beerpunkapp.utilits.OnLoadMoreListener
+import com.example.beerpunkapp.utilits.RecyclerViewLoadMoreScroll
 import com.example.beerpunkapp.utilits.mainActivity
-import com.example.beerpunkapp.utilits.showToast
 import kotlin.math.abs
 
 class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
@@ -47,9 +45,37 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
         super.onViewCreated(view, savedInstanceState)
         mainActivity.setSupportActionBar(binding.mainToolbar)
         viewModel.state.observe(viewLifecycleOwner, ::handleState)
-        binding.searchRecyclerView.adapter = SearchResultAdapter(::handleBeerClick)
+        //binding.searchRecyclerView.adapter = SearchResultAdapter(::handleBeerClick)
         loadData()
+        setRecyclerView()
         mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun setRecyclerView() {
+        var adapterLinear = SearchResultAdapter(::handleBeerClick)
+        binding.searchRecyclerView.adapter = adapterLinear
+        binding.searchRecyclerView.layoutManager = LinearLayoutManager(mainActivity)
+        binding.searchRecyclerView.setHasFixedSize(true)
+        val scrollListener = RecyclerViewLoadMoreScroll(LinearLayoutManager(mainActivity))
+        scrollListener.setOnLoadMoreListener(object :
+            OnLoadMoreListener {
+            override fun onLoadMore() {
+                loadMoreData()
+            }
+            private fun loadMoreData() {
+                adapterLinear.addLoadingView()
+                var newList = ArrayList<Beer>()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    expandData()
+                    adapterLinear.removeLoadingView()
+                    scrollListener.setLoaded()
+                    binding.searchRecyclerView.post{
+                        adapterLinear.notifyDataSetChanged()
+                    }
+                }, 3000)
+            }
+        })
+        binding.searchRecyclerView.addOnScrollListener(scrollListener)
     }
 
     private fun handleBeerClick(beer: Beer) {
@@ -62,6 +88,10 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
 
     private fun loadData() {
         args.paramList?.let { viewModel.loadData(it) }
+    }
+
+    private fun expandData(){
+        viewModel.expandData()
     }
 
     private fun handleState(state: SearchResultState) {
@@ -100,7 +130,7 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
             progressBar.isVisible = false
             errorContent.isVisible = false
             recyclerViewContent.isVisible = true
-            (searchRecyclerView.adapter as? SearchResultAdapter)?.beers = items
+            (searchRecyclerView.adapter as? SearchResultAdapter)?.addData(items)
         }
     }
 
