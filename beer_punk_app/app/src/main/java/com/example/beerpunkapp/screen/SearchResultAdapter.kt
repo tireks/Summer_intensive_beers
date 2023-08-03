@@ -64,14 +64,16 @@ class SearchResultAdapter (
     fun addLoadingView(){
         Handler(Looper.getMainLooper()).post {
             beers.add(null)
-            notifyItemInserted(beers.size - 1)
+            notifyItemInserted(beers.size)
         }
     }
 
     fun removeLoadingView() {
         if (beers.size != 0) {
-            beers.removeAt(beers.size - 1)
-            notifyItemRemoved(beers.size)
+            val tempIndex = beers.indexOf(null)
+            beers.removeAt(tempIndex)
+           // beers.rep
+            notifyItemRemoved(tempIndex)
         }
     }
 

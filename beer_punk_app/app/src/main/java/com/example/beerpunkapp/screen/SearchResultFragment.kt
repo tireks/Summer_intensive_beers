@@ -3,11 +3,13 @@ package com.example.beerpunkapp.screen
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.fragment.navArgs
@@ -20,11 +22,14 @@ import com.example.beerpunkapp.presentation.SearchResultViewModel
 import com.example.beerpunkapp.utilits.OnLoadMoreListener
 import com.example.beerpunkapp.utilits.RecyclerViewLoadMoreScroll
 import com.example.beerpunkapp.utilits.mainActivity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
 
     private val args: SearchResultFragmentArgs by navArgs()
+    private val TAG = "fragment" //todo
 
     override fun inflateViewBinding(
         inflater: LayoutInflater,
@@ -45,9 +50,8 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
         super.onViewCreated(view, savedInstanceState)
         mainActivity.setSupportActionBar(binding.mainToolbar)
         viewModel.state.observe(viewLifecycleOwner, ::handleState)
-        //binding.searchRecyclerView.adapter = SearchResultAdapter(::handleBeerClick)
-        loadData()
         setRecyclerView()
+        loadData()
         mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -64,15 +68,14 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
             }
             private fun loadMoreData() {
                 adapterLinear.addLoadingView()
-                var newList = ArrayList<Beer>()
-                Handler(Looper.getMainLooper()).postDelayed({
+                lifecycleScope.launch {
+                    delay(3000)
+                    var newList = ArrayList<Beer>()
                     expandData()
                     adapterLinear.removeLoadingView()
                     scrollListener.setLoaded()
-                    binding.searchRecyclerView.post{
-                        adapterLinear.notifyDataSetChanged()
-                    }
-                }, 3000)
+                }
+
             }
         })
         binding.searchRecyclerView.addOnScrollListener(scrollListener)
@@ -92,6 +95,7 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
 
     private fun expandData(){
         viewModel.expandData()
+        Log.v(TAG,"expandStarted")
     }
 
     private fun handleState(state: SearchResultState) {
