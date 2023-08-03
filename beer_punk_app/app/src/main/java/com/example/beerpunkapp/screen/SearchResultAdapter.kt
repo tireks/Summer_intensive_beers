@@ -2,8 +2,10 @@ package com.example.beerpunkapp.screen
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerpunkapp.R
@@ -17,6 +19,7 @@ class SearchResultAdapter (
 
 
     private var beers: ArrayList<Beer?> = arrayListOf()
+    private val TAG = "adapter" //todo
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_TYPE_ITEM){
@@ -26,11 +29,8 @@ class SearchResultAdapter (
         } else {
             val inflater = LayoutInflater.from(parent.context)
             val binding = ProgressLoadingBinding.inflate(inflater, parent, false)
-            LoadingViewHolder(binding)
+            ItemLastViewHolder(binding)
         }
-        /*val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemBeerBinding.inflate(inflater, parent, false)
-        return ItemReadyViewHolder(binding)*/
     }
 
     override fun getItemCount(): Int = beers.size
@@ -39,22 +39,29 @@ class SearchResultAdapter (
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder.itemViewType == VIEW_TYPE_ITEM){
             (holder as ItemReadyViewHolder).bind(beers[position], beerClickListener)
+        } else {
+            (holder as ItemLastViewHolder).bind()
         }
-
-
     }
 
     override fun getItemViewType(position: Int): Int {
         return if (beers[position] == null) {
-            VIEW_TYPE_LOADING
+            VIEW_TYPE_LAST
         } else {
             VIEW_TYPE_ITEM
         }
     }
 
     fun addData(newItems: List<Beer?>){
-        beers.addAll(newItems)
-        notifyDataSetChanged()
+        if (beers.isEmpty()){
+            beers.addAll(newItems)
+            Log.v(TAG,"beers: " + beers.size) //todo
+            notifyDataSetChanged()
+        } else {
+            beers.addAll(newItems)
+            removeLoadingView()
+        }
+        beers.add(null)
     }
 
     fun getItemAtPosition(position: Int): Beer? {
@@ -62,23 +69,24 @@ class SearchResultAdapter (
     }
 
     fun addLoadingView(){
-        Handler(Looper.getMainLooper()).post {
-            beers.add(null)
-            notifyItemInserted(beers.size)
-        }
+        // todo
     }
 
     fun removeLoadingView() {
         if (beers.size != 0) {
             val tempIndex = beers.indexOf(null)
-            beers.removeAt(tempIndex)
+            beers[tempIndex] = beers[tempIndex + 1]
+            beers.removeAt(tempIndex + 1)
            // beers.rep
-            notifyItemRemoved(tempIndex)
+            //notifyItemRemoved(tempIndex + 1)
+            notifyItemChanged(tempIndex)
+            /*beers.removeAt(tempIndex)
+            notifyItemRemoved(tempIndex)*/
         }
     }
 
     companion object {
-        const val VIEW_TYPE_LOADING = 1
+        const val VIEW_TYPE_LAST = 1
         const val VIEW_TYPE_ITEM = 0
     }
 }
@@ -105,8 +113,11 @@ class ItemReadyViewHolder (
     }
 }
 
-class LoadingViewHolder(
+class ItemLastViewHolder(
     private val binding: ProgressLoadingBinding
 ): RecyclerView.ViewHolder(binding.root) {
+    fun bind() {
+        binding.progressbar.isVisible = false
+    }
 
 }

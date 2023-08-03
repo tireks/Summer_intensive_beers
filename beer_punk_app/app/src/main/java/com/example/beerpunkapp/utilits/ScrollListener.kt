@@ -18,10 +18,6 @@ class RecyclerViewLoadMoreScroll : RecyclerView.OnScrollListener {
         isLoading = false
     }
 
-    /*fun getLoaded(): Boolean {
-        return isLoading
-    }*/
-
     fun setOnLoadMoreListener(listener: OnLoadMoreListener) {
         this.onLoadMoreListener = listener
     }
@@ -31,45 +27,23 @@ class RecyclerViewLoadMoreScroll : RecyclerView.OnScrollListener {
     }
 
 
-    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+    /*override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
 
         if (dy <= 0) return
 
-        /*totalItemCount = layoutManager.itemCount
-        lastVisibleItem = (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-        if (!isLoading && totalItemCount == lastVisibleItem + visibleThreshold) {
-            onLoadMoreListener.onLoadMore()
-            isLoading = true
-            Log.v(TAG,"activated loading")
-            Log.v(TAG,"itemCount:" + totalItemCount + "|||" + "lastVisItem" + lastVisibleItem)
-        }*/
-
-    }
+    }*/
 
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
         super.onScrollStateChanged(recyclerView, newState)
         if (!recyclerView.canScrollVertically(1)) {
-            Log.v(TAG,"on bottom")
+            Log.v(TAG,"on bottom") //todo
             if (!isLoading){
                 isLoading = true
-                recyclerView.smoothScrollToPosition(layoutManager.itemCount)
                 onLoadMoreListener.onLoadMore()
             }
         }
     }
-
-    /*private fun getLastVisibleItem(lastVisibleItemPositions: IntArray): Int {
-        var maxSize = 0
-        for (i in lastVisibleItemPositions.indices) {
-            if (i == 0) {
-                maxSize = lastVisibleItemPositions[i]
-            } else if (lastVisibleItemPositions[i] > maxSize) {
-                maxSize = lastVisibleItemPositions[i]
-            }
-        }
-        return maxSize
-    }*/
 }
 
 interface OnLoadMoreListener {

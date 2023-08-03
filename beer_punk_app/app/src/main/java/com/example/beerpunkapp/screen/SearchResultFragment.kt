@@ -70,12 +70,10 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
                 adapterLinear.addLoadingView()
                 lifecycleScope.launch {
                     delay(3000)
-                    var newList = ArrayList<Beer>()
                     expandData()
-                    adapterLinear.removeLoadingView()
+                    //adapterLinear.removeLoadingView()
                     scrollListener.setLoaded()
                 }
-
             }
         })
         binding.searchRecyclerView.addOnScrollListener(scrollListener)
@@ -95,7 +93,7 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
 
     private fun expandData(){
         viewModel.expandData()
-        Log.v(TAG,"expandStarted")
+        Log.v(TAG,"expandStarted") //todo
     }
 
     private fun handleState(state: SearchResultState) {
