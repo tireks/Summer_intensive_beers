@@ -71,7 +71,6 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
                 lifecycleScope.launch {
                     delay(3000)
                     expandData()
-                    //adapterLinear.removeLoadingView()
                     scrollListener.setLoaded()
                 }
             }

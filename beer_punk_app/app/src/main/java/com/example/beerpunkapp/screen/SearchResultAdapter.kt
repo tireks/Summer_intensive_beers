@@ -1,7 +1,5 @@
 package com.example.beerpunkapp.screen
 
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -19,6 +17,7 @@ class SearchResultAdapter (
 
 
     private var beers: ArrayList<Beer?> = arrayListOf()
+    private var loadingStatus = false
     private val TAG = "adapter" //todo
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -37,16 +36,31 @@ class SearchResultAdapter (
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder.itemViewType == VIEW_TYPE_ITEM){
+        /*if (holder.itemViewType == VIEW_TYPE_ITEM){
             (holder as ItemReadyViewHolder).bind(beers[position], beerClickListener)
         } else {
-            (holder as ItemLastViewHolder).bind()
+            (holder as ItemLastViewHolder).bindEmpty()
+        }*/
+        when(holder.itemViewType){
+            VIEW_TYPE_ITEM -> {
+                (holder as ItemReadyViewHolder).bind(beers[position], beerClickListener)
+            }
+            VIEW_TYPE_LAST -> {
+                (holder as ItemLastViewHolder).bindEmpty()
+            }
+            VIEW_TYPE_LOADER -> {
+                (holder as ItemLastViewHolder).bindLoader()
+            }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return if (beers[position] == null) {
-            VIEW_TYPE_LAST
+            if (loadingStatus){
+                VIEW_TYPE_LOADER
+            } else {
+                VIEW_TYPE_LAST
+            }
         } else {
             VIEW_TYPE_ITEM
         }
@@ -60,6 +74,7 @@ class SearchResultAdapter (
         } else {
             beers.addAll(newItems)
             removeLoadingView()
+            loadingStatus = false
         }
         beers.add(null)
     }
@@ -70,6 +85,8 @@ class SearchResultAdapter (
 
     fun addLoadingView(){
         // todo
+        loadingStatus = true
+        notifyItemChanged(beers.indexOf(null))
     }
 
     fun removeLoadingView() {
@@ -88,6 +105,7 @@ class SearchResultAdapter (
     companion object {
         const val VIEW_TYPE_LAST = 1
         const val VIEW_TYPE_ITEM = 0
+        const val VIEW_TYPE_LOADER = -1
     }
 }
 
@@ -116,8 +134,12 @@ class ItemReadyViewHolder (
 class ItemLastViewHolder(
     private val binding: ProgressLoadingBinding
 ): RecyclerView.ViewHolder(binding.root) {
-    fun bind() {
+    fun bindEmpty() {
         binding.progressbar.isVisible = false
+    }
+
+    fun bindLoader() {
+        binding.progressbar.isVisible = true
     }
 
 }
