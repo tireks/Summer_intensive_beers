@@ -17,6 +17,7 @@ import com.example.beerpunkapp.databinding.FragmentSearchFormBinding
 import com.example.beerpunkapp.presentation.SearchFormState
 import com.example.beerpunkapp.presentation.SearchFormViewModel
 import com.example.beerpunkapp.utilits.*
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 
@@ -57,6 +58,10 @@ class SearchFormFragment : BaseFragment<FragmentSearchFormBinding>() {
 
     private fun lockSearch() {
         binding.searchButton.isEnabled = false
+        Snackbar.make(binding.searchButton, getString(R.string.search_form_snackbar_msg), Snackbar.LENGTH_LONG)
+            .setAnchorView(binding.bottomButtonBar)
+            .setAction(getString(R.string.search_form_snackbar_action)){  }
+            .show()
     }
 
     private fun unlockSearch() {
