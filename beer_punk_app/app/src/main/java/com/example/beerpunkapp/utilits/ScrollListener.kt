@@ -12,7 +12,6 @@ class RecyclerViewLoadMoreScroll : RecyclerView.OnScrollListener {
     /*private var lastVisibleItem: Int = 0
     private var totalItemCount: Int = 0*/
     private var layoutManager: RecyclerView.LayoutManager
-    private val TAG = "scrollListener" //todo
 
     fun setLoaded() {
         isLoading = false
@@ -37,7 +36,6 @@ class RecyclerViewLoadMoreScroll : RecyclerView.OnScrollListener {
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
         super.onScrollStateChanged(recyclerView, newState)
         if (!recyclerView.canScrollVertically(1)) {
-            Log.v(TAG,"on bottom") //todo
             if (!isLoading){
                 isLoading = true
                 onLoadMoreListener.onLoadMore()

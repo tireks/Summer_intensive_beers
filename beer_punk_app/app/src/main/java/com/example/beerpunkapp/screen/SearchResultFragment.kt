@@ -29,7 +29,6 @@ import kotlin.math.abs
 class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
 
     private val args: SearchResultFragmentArgs by navArgs()
-    private val TAG = "fragment" //todo
 
     override fun inflateViewBinding(
         inflater: LayoutInflater,
@@ -92,7 +91,6 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
 
     private fun expandData(){
         viewModel.expandData()
-        Log.v(TAG,"expandStarted") //todo
     }
 
     private fun handleState(state: SearchResultState) {
