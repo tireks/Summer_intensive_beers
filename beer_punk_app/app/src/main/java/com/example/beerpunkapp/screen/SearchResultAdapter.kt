@@ -73,9 +73,6 @@ class SearchResultAdapter (
         beers.add(null)
     }
 
-    fun getItemAtPosition(position: Int): Beer? {
-        return beers[position]
-    }
 
     fun addLoadingView(){
         // todo
@@ -88,11 +85,7 @@ class SearchResultAdapter (
             val tempIndex = beers.indexOf(null)
             beers[tempIndex] = beers[tempIndex + 1]
             beers.removeAt(tempIndex + 1)
-           // beers.rep
-            //notifyItemRemoved(tempIndex + 1)
             notifyItemChanged(tempIndex)
-            /*beers.removeAt(tempIndex)
-            notifyItemRemoved(tempIndex)*/
         }
     }
 

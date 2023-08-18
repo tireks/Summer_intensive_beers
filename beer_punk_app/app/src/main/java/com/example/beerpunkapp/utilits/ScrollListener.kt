@@ -6,11 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class RecyclerViewLoadMoreScroll : RecyclerView.OnScrollListener {
 
-    /*private var visibleThreshold = 1*/
     private lateinit var onLoadMoreListener: OnLoadMoreListener
     private var isLoading: Boolean = false
-    /*private var lastVisibleItem: Int = 0
-    private var totalItemCount: Int = 0*/
     private var layoutManager: RecyclerView.LayoutManager
 
     fun setLoaded() {
@@ -25,13 +22,6 @@ class RecyclerViewLoadMoreScroll : RecyclerView.OnScrollListener {
         this.layoutManager = layoutManager
     }
 
-
-    /*override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-        super.onScrolled(recyclerView, dx, dy)
-
-        if (dy <= 0) return
-
-    }*/
 
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
         super.onScrollStateChanged(recyclerView, newState)

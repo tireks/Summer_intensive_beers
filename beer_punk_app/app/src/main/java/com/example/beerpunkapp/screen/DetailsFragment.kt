@@ -79,7 +79,6 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(){
             detailsFirstBrewedContent.text = beers[0].brew_date ?: getString(R.string.details_id_placeholder_nulldata)
             detailsDescriptionContent.text = beers[0].description ?: getString(R.string.details_description_placeholder_nulldata)
             detailsTagContent.text = beers[0].tags ?: getString(R.string.details_tag_placeholder_nulldata)
-            //detailsTagContent.text = beers[0].ingredients?.yeast ?: "--tag is missing--"
             detailsAbvContent.text = beers[0].abv ?: getString(R.string.details_nums_placeholder_nulldata)
             detailsEbcContent.text = beers[0].ebc ?: getString(R.string.details_nums_placeholder_nulldata)
             detailsIbuContent.text = beers[0].ibu ?: getString(R.string.details_nums_placeholder_nulldata)
@@ -131,7 +130,6 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(){
 
     override fun onResume() {
         super.onResume()
-        //mainActivity.supportActionBar?.hide()
         mainActivity.setSupportActionBar(binding.detailsToolbar)
         mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
