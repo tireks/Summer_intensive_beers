@@ -33,6 +33,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_beer"
+            android:scrollbars="vertical"
             />
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/button_next_page"

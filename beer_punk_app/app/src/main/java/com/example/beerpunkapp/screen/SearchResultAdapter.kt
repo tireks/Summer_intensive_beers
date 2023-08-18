@@ -36,11 +36,7 @@ class SearchResultAdapter (
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        /*if (holder.itemViewType == VIEW_TYPE_ITEM){
-            (holder as ItemReadyViewHolder).bind(beers[position], beerClickListener)
-        } else {
-            (holder as ItemLastViewHolder).bindEmpty()
-        }*/
+
         when(holder.itemViewType){
             VIEW_TYPE_ITEM -> {
                 (holder as ItemReadyViewHolder).bind(beers[position], beerClickListener)
