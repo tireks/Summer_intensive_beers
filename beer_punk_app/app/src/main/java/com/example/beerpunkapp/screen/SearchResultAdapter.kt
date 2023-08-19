@@ -18,6 +18,7 @@ class SearchResultAdapter (
 
     private var beers: ArrayList<Beer?> = arrayListOf()
     private var loadingStatus = false
+    private val TAG = "adapter" //todo
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_TYPE_ITEM){
@@ -62,15 +63,20 @@ class SearchResultAdapter (
     }
 
     fun addData(newItems: List<Beer?>){
-        if (beers.isEmpty()){
-            beers.addAll(newItems)
-            notifyDataSetChanged()
-        } else {
-            beers.addAll(newItems)
-            removeLoadingView()
+        if (newItems.isEmpty()){
             loadingStatus = false
+            notifyItemChanged(beers.indexOf(null))
+        } else {
+            if (beers.isEmpty()){
+                beers.addAll(newItems)
+                notifyDataSetChanged()
+            } else {
+                beers.addAll(newItems)
+                removeLoadingView()
+                loadingStatus = false
+            }
+            beers.add(null)
         }
-        beers.add(null)
     }
 
 

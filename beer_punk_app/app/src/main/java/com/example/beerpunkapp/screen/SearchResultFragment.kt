@@ -22,6 +22,7 @@ import com.example.beerpunkapp.presentation.SearchResultViewModel
 import com.example.beerpunkapp.utilits.OnLoadMoreListener
 import com.example.beerpunkapp.utilits.RecyclerViewLoadMoreScroll
 import com.example.beerpunkapp.utilits.mainActivity
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.abs
@@ -129,6 +130,11 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
             progressBar.isVisible = false
             errorContent.isVisible = false
             recyclerViewContent.isVisible = true
+            if (items.isEmpty()){
+                Snackbar.make(binding.searchRecyclerView, "Sorry! There no else beers left", Snackbar.LENGTH_LONG)
+                    .setAction("Got It"){  }
+                    .show()
+            }
             (searchRecyclerView.adapter as? SearchResultAdapter)?.addData(items)
         }
     }
