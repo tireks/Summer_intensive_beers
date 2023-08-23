@@ -16,43 +16,45 @@ class SearchResultViewModel (
     val state: LiveData<SearchResultState> = _state
     private var page = 1
     private var parametersMap : MutableMap<String, String> = mutableMapOf()
-    private val TAG = "viewModel" //todo
 
     fun loadData (parameters: Array<String>){
         viewModelScope.launch {
-            prepareParametersMap(parameters)
-            try {
-                Log.v(TAG,"trying usecase on load") //todo
-                val beers = useCase(parametersMap)
-                if (beers.isEmpty()){
-                    _state.value = SearchResultState.EmptyContent
-                    Log.v(TAG,"empty answer on load") //todo
+            val localState = _state.value
+            if (localState is SearchResultState.Content && localState.items.isNotEmpty()){
+                _state.value = SearchResultState.Content(localState.items, true)
+            } else {
+                prepareParametersMap(parameters)
+                try {
+                    val beers = useCase(parametersMap)
+                    if (beers.isEmpty()){
+                        _state.value = SearchResultState.EmptyContent
+                    }
+                    _state.value = SearchResultState.Content(beers, true)
+                } catch (e: Exception) {
+                    // Тут изменяет состояние для отображения ошибки: передаем полученное сообщение об ошибки
+                    _state.value = SearchResultState.Error(e.localizedMessage.orEmpty())
                 }
-                _state.value = SearchResultState.Content(beers)
-                Log.v(TAG,"contenting on load") //todo
-            } catch (e: Exception) {
-                // Тут изменяет состояние для отображения ошибки: передаем полученное сообщение об ошибки
-                _state.value = SearchResultState.Error(e.localizedMessage.orEmpty())
             }
         }
     }
 
     fun expandData(){
         viewModelScope.launch {
+            var expandAvailabilityFlag = true
             val localState = _state.value
             if (localState is SearchResultState.Content){
                 page++
                 var tempList = localState.items
                 try {
                     parametersMap["page"] = page.toString()
-                    Log.v(TAG,"trying usecase on expand") //todo
                     val beers = useCase(parametersMap)
                     if (beers.isEmpty()){
-                        Log.v(TAG,"empty answer on expand") //todo
+                        //todo сюда надо бахнуть какое-нибудь изменение какого-нибудь флага,
+                        // чтобы больше не дергал экспанд
+                        expandAvailabilityFlag = false
                     }
                     // Тут изменяет состояние для отображения списка займов: передаем полученный список займов из сети
-                    Log.v(TAG,"contenting on expand") //todo
-                    _state.value = SearchResultState.Content(beers)
+                    _state.value = SearchResultState.Content(tempList + beers, expandAvailabilityFlag)
                 } catch (e: Exception) {
                     // Тут изменяет состояние для отображения ошибки: передаем полученное сообщение об ошибки
                     _state.value = SearchResultState.Error(e.localizedMessage.orEmpty())
@@ -69,3 +71,9 @@ class SearchResultViewModel (
     }
 
 }
+
+//todo нужно сделать хранение всего списка в стейте контента(сейчас просто новая часть хранится),
+// следовательно никикой конкатенации листа в адаптере, просто отображение нового списка
+// (это вроде должно работать, ресайклер вроде неплохо работает со своим положением в списке),
+// и еще важно посмотреть ту залупу с апдейтом лоадинг бара, чтобы при показе списка заново,
+// а не конкатенации, все работало корректно (по идее и так должно работать, но нужно проверить)

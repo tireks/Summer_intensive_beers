@@ -91,6 +91,8 @@
     <string name="search_form_date_text_variable_zero">0%s.%s</string>
     <string name="search_form_snackbar_msg">Invalid data!</string>
     <string name="search_form_snackbar_action">got it</string>
+    <string name="search_result_attention_snackbar_label">Sorry! There no else beers left</string>
+    <string name="search_result_attention_snackbar_action">Got It</string>
 
 
 </resources>

@@ -9,7 +9,7 @@ sealed interface SearchResultState{
 
     object EmptyContent : SearchResultState
 
-    data class Content(val items: List<Beer>) : SearchResultState
+    data class Content(val items: List<Beer>, val expandAvailable : Boolean) : SearchResultState
 
     data class Error(val msg: String) : SearchResultState
 

@@ -14,6 +14,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.beerpunkapp.R
 import com.example.beerpunkapp.databinding.FragmentSearchResultBinding
 import com.example.beerpunkapp.domain.entity.Beer
 import com.example.beerpunkapp.domain.usecase.GetBeersBySearchUseCase
@@ -30,6 +31,8 @@ import kotlin.math.abs
 class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
 
     private val args: SearchResultFragmentArgs by navArgs()
+    private val adapterLinear by lazy { SearchResultAdapter(::handleBeerClick) }
+    private val TAG = "fragment" //todo
 
     override fun inflateViewBinding(
         inflater: LayoutInflater,
@@ -47,16 +50,16 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setRecyclerView()
         super.onViewCreated(view, savedInstanceState)
+        loadData()
         mainActivity.setSupportActionBar(binding.mainToolbar)
         viewModel.state.observe(viewLifecycleOwner, ::handleState)
-        setRecyclerView()
-        loadData()
         mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        Log.v(TAG,"onViewCreated") //todo
     }
 
     private fun setRecyclerView() {
-        var adapterLinear = SearchResultAdapter(::handleBeerClick)
         binding.searchRecyclerView.adapter = adapterLinear
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(mainActivity)
         binding.searchRecyclerView.setHasFixedSize(true)
@@ -64,9 +67,9 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
         scrollListener.setOnLoadMoreListener(object :
             OnLoadMoreListener {
             override fun onLoadMore() {
-                loadMoreData()
-            }
-            private fun loadMoreData() {
+                if (viewModel.state is SearchResultState.Content){
+
+                }
                 adapterLinear.addLoadingView()
                 lifecycleScope.launch {
                     delay(3000)
@@ -96,7 +99,7 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
 
     private fun handleState(state: SearchResultState) {
         when (state) {
-            SearchResultState.Initial    -> Unit
+            SearchResultState.Initial    -> Log.v(TAG,"initial state") //todo
             SearchResultState.Loading    -> showProgress()
             is SearchResultState.Content -> showContent(state.items)
             is SearchResultState.Error   -> showError(state.msg)
@@ -131,11 +134,12 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
             errorContent.isVisible = false
             recyclerViewContent.isVisible = true
             if (items.isEmpty()){
-                Snackbar.make(binding.searchRecyclerView, "Sorry! There no else beers left", Snackbar.LENGTH_LONG)
-                    .setAction("Got It"){  }
+                Snackbar.make(binding.searchRecyclerView, getString(R.string.search_result_attention_snackbar_label), Snackbar.LENGTH_LONG)
+                    .setAction(getString(R.string.search_result_attention_snackbar_action)){  }
                     .show()
             }
-            (searchRecyclerView.adapter as? SearchResultAdapter)?.addData(items)
+            (searchRecyclerView.adapter as? SearchResultAdapter)?.rebuildData(items + null)
+            Log.v(TAG,"addData") //todo
         }
     }
 
