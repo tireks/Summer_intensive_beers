@@ -30,7 +30,6 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
 
     private val args: SearchResultFragmentArgs by navArgs()
     private val adapterLinear by lazy { SearchResultAdapter(::handleBeerClick) }
-    private val TAG = "fragment" //todo
 
     override fun inflateViewBinding(
         inflater: LayoutInflater,
@@ -54,7 +53,6 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
         mainActivity.setSupportActionBar(binding.mainToolbar)
         viewModel.state.observe(viewLifecycleOwner, ::handleState)
         mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        Log.v(TAG,"onViewCreated") //todo
     }
 
     private fun setRecyclerView() {
@@ -97,7 +95,7 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
 
     private fun handleState(state: SearchResultState) {
         when (state) {
-            SearchResultState.Initial    -> Log.v(TAG,"initial state") //todo
+            SearchResultState.Initial    -> Unit
             SearchResultState.Loading    -> showProgress()
             is SearchResultState.Content -> showContent(state.items, state.expandAvailable)
             is SearchResultState.Error   -> showError(state.msg)
@@ -138,7 +136,6 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
                     .show()
                 searchRecyclerView.clearOnScrollListeners()
             }
-            Log.v(TAG,"addData") //todo
         }
     }
 

@@ -18,7 +18,6 @@ class SearchResultAdapter (
 
     private var beers: ArrayList<Beer?> = arrayListOf()
     private var loadingStatus = false
-    private val TAG = "adapter" //todo
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_TYPE_ITEM){
@@ -62,39 +61,16 @@ class SearchResultAdapter (
         }
     }
 
-    /*fun addData(newItems: List<Beer?>){
-        Log.v(TAG,"beerlist size:" + beers.size) //todo
-        if (newItems.isEmpty()){
-            loadingStatus = false
-            notifyItemChanged(beers.indexOf(null))
-        } else {
-            if (beers.isEmpty()){
-                beers.addAll(newItems)
-                notifyDataSetChanged()
-            } else {
-                beers.addAll(newItems)
-                removeLoadingView(changedPosition)
-                loadingStatus = false
-            }
-            beers.add(null)
-        }
-        Log.v(TAG,"beerlist size:" + beers.size) //todo
-    }*/
-
     fun rebuildData(newItems: List<Beer?>){
-        Log.v(TAG,"beerlist size:" + beers.size) //todo
-        Log.v(TAG,"newitems size:" + newItems.size) //todo
         if (beers == newItems){
             loadingStatus = false
             notifyItemChanged(beers.indexOf(null))
         } else {
             if (beers.isEmpty()) {
-                Log.v(TAG,"new content") //todo
                 beers.clear()
                 beers.addAll(newItems)
                 notifyDataSetChanged()
             } else {
-                Log.v(TAG,"expand content") //todo
                 val changedPosition = beers.indexOf(null)
                 beers.clear()
                 beers.addAll(newItems)
@@ -112,12 +88,7 @@ class SearchResultAdapter (
 
     private fun removeLoadingView(changedPosition: Int) {
         if (beers.size != 0) {
-            /*val tempIndex = beers.indexOf(null)
-            beers[tempIndex] = beers[tempIndex + 1]
-            beers.removeAt(tempIndex + 1)
-            notifyItemChanged(tempIndex)*/
             notifyItemChanged(changedPosition)
-            //todo теперь ремув неправильно работает
         }
     }
 
