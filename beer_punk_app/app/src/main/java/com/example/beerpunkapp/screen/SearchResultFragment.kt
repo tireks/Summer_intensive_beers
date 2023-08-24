@@ -1,8 +1,6 @@
 package com.example.beerpunkapp.screen
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -67,9 +65,9 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
         scrollListener.setOnLoadMoreListener(object :
             OnLoadMoreListener {
             override fun onLoadMore() {
-                if (viewModel.state is SearchResultState.Content){
+                /*if (viewModel.state){
 
-                }
+                }*/
                 adapterLinear.addLoadingView()
                 lifecycleScope.launch {
                     delay(3000)
@@ -101,7 +99,7 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
         when (state) {
             SearchResultState.Initial    -> Log.v(TAG,"initial state") //todo
             SearchResultState.Loading    -> showProgress()
-            is SearchResultState.Content -> showContent(state.items)
+            is SearchResultState.Content -> showContent(state.items, state.expandAvailable)
             is SearchResultState.Error   -> showError(state.msg)
             SearchResultState.EmptyContent -> showEmpty()
         }
@@ -128,7 +126,7 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
         }
     }
 
-    private fun showContent(items: List<Beer>) {
+    private fun showContent(items: List<Beer>, expandAvailable : Boolean) {
         with(binding) {
             progressBar.isVisible = false
             errorContent.isVisible = false
@@ -139,6 +137,9 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
                     .show()
             }
             (searchRecyclerView.adapter as? SearchResultAdapter)?.rebuildData(items + null)
+            if (!expandAvailable){
+                searchRecyclerView.clearOnScrollListeners()
+            }
             Log.v(TAG,"addData") //todo
         }
     }
