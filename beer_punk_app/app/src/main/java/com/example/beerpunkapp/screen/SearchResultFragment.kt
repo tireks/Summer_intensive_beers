@@ -131,13 +131,11 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(){
             progressBar.isVisible = false
             errorContent.isVisible = false
             recyclerViewContent.isVisible = true
-            if (items.isEmpty()){
+            (searchRecyclerView.adapter as? SearchResultAdapter)?.rebuildData(items + null)
+            if (!expandAvailable){
                 Snackbar.make(binding.searchRecyclerView, getString(R.string.search_result_attention_snackbar_label), Snackbar.LENGTH_LONG)
                     .setAction(getString(R.string.search_result_attention_snackbar_action)){  }
                     .show()
-            }
-            (searchRecyclerView.adapter as? SearchResultAdapter)?.rebuildData(items + null)
-            if (!expandAvailable){
                 searchRecyclerView.clearOnScrollListeners()
             }
             Log.v(TAG,"addData") //todo
