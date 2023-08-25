@@ -79,6 +79,7 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
             progressBar.isVisible = false
             errorContent.isVisible = false
             recuclerViewContent.isVisible = true
+            startRecyclerView.scrollToPosition(0)
             (startRecyclerView.adapter as? StartAdapter)?.beers = beers
             buttonInfoPage.text = String.format(resources.getString(R.string.start_button_info_variable), page)
             buttonNextPage.setOnClickListener {
