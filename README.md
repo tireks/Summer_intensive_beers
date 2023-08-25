@@ -5,17 +5,37 @@ Pet-project. Simple "Frontend" for [Punk API](https://punkapi.com/documentation/
 
 ## Contents
 
- - [Implemented Features](#Features)
- - [Used stack](#Used-stack)
+ - [Implemented Features](##Features)
+ - [Used stack](##Used-stack)
 
 
 ## Features
 
-- Light/dark mode toggle
-- Live previews
-- Fullscreen mode
-- Cross platform
+- [Start screen](###Start-screen)
+- [SearchForm screen](###SearchForm-screen)
+- [Search results screen](###Search-results-screen)
+- [Details screen](###Details-screen)
 
+
+### Start screen
+sdasdsd
+sdsds
+dsdsd
+
+### SearchForm screen
+sdsdsd
+sdsdsd
+sdsds
+
+### Search results screen
+sdsdsds
+dsdsd
+sdsd
+
+### Details screen
+sdsdsdsd
+sdsds
+dsdsdsd
 
 ## Used stack
 ыфффыы
