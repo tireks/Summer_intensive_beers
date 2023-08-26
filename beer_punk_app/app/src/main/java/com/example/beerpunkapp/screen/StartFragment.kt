@@ -82,9 +82,11 @@ class StartFragment : BaseFragment<FragmentStartBinding>(){
             (startRecyclerView.adapter as? StartAdapter)?.beers = beers
             buttonInfoPage.text = String.format(resources.getString(R.string.start_button_info_variable), page)
             buttonNextPage.setOnClickListener {
+                startRecyclerView.scrollToPosition(0)
                 viewModel.nextButtonHandler()
             }
             buttonPrevPage.setOnClickListener {
+                startRecyclerView.scrollToPosition(0)
                 viewModel.prevButtonHandler()
             }
         }
